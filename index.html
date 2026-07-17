@@ -8,6 +8,15 @@
 <meta property="og:title" content="Daniel Martínez — grafo de conocimiento">
 <meta property="og:description" content="Ocho años de IA en producción en banca, como grafo de conocimiento interactivo — con un agente que responde por mí.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://talktomycv.vercel.app/">
+<meta property="og:image" content="https://talktomycv.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Daniel Martínez Rebolledo — Head of AI en Future Finance (Globant), su CV como grafo de conocimiento interactivo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daniel Martínez — grafo de conocimiento">
+<meta name="twitter:description" content="Ocho años de IA en producción en banca, como grafo de conocimiento interactivo — con un agente que responde por mí.">
+<meta name="twitter:image" content="https://talktomycv.vercel.app/og.png">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
 </head>
@@ -200,6 +209,9 @@ button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer
   font-family:var(--mono);font-size:10px;color:var(--muted);
   border:1px solid var(--line);border-radius:5px;padding:2px 8px;
 }
+.impact{display:flex;align-items:baseline;gap:9px;margin:0 0 16px;padding:10px 13px;border:1px solid var(--line);border-left:2px solid var(--c-pro);border-radius:8px;background:var(--input)}
+.impact .impact-k{flex:none;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-pro)}
+.impact span:last-child{font-size:13px;color:var(--text);font-weight:500;line-height:1.4}
 .rel-t{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 9px}
 .rels{display:flex;flex-wrap:wrap;gap:7px}
 .rels button{
@@ -391,17 +403,17 @@ const N = [
  p:['<p>Embebido a tiempo completo en el equipo de la plataforma global de IA del banco, como externo desde Globant. El rol más técnico de mi carrera, en el entorno más exigente:</p>','<ul><li><b>Knowledge graph del CIB</b>: datos estructurados + no estructurados, documentación de 500+ páginas anidada — ver nodo "KG del CIB".</li><li><b>KB de internal governance</b> sobre AWS Bedrock, con trazabilidad a fuente — ver nodo.</li><li><b>Frameworks de evaluación</b> con métricas NER, LLM-as-a-judge y golden sets — ver nodo "Framework de evaluación".</li><li><b>Evaluación de tooling de IA de terceros:</b> testing hands-on, diseño de planes de validación de POCs y supervisión de despliegues.</li><li><b>Capa semántica de conocimiento</b> sobre AWS — ver nodo "Capa semántica AWS".</li></ul>']},
 
 /* ── proyectos ── */
-{id:'kb12m',type:'proyecto',n:'KB contact center 12M',t:'Knowledge base — contact center a escala',meta:'future finance · banca tier-1 · arquitectura',
+{id:'kb12m',type:'proyecto',n:'KB contact center 12M',t:'Knowledge base — contact center a escala',meta:'future finance · banca tier-1 · arquitectura',impact:'~12M llamadas/año atendidas por el asistente virtual',
  p:['<p>Diseño de la knowledge base que alimenta al asistente virtual de un contact center bancario con <b>~12M llamadas/año</b>.</p>','<ul><li>Ingesta y normalización de documentación operativa heterogénea.</li><li>Estrategia de <b>chunking por estructura documental</b> (no por tamaño fijo) para preservar contexto de procedimientos.</li><li><b>Retrieval híbrido</b> semántico + léxico con filtrado por metadatos.</li><li>Diseñada para operar bajo los SLAs y la trazabilidad de un banco.</li></ul>','<div class="stack"><span>AWS Bedrock</span><span>OpenSearch</span><span>retrieval híbrido</span><span>chunking estructural</span></div>']},
-{id:'caixa',type:'proyecto',n:'Multi-agente · pagos',t:'Sistema multi-agente — casos de uso en Jira',meta:'entidad de pagos de un grupo bancario español · azure · producción',
+{id:'caixa',type:'proyecto',n:'Multi-agente · pagos',t:'Sistema multi-agente — casos de uso en Jira',meta:'entidad de pagos de un grupo bancario español · azure · producción',impact:'Casos de uso generados directamente en Jira, trazables a su requisito',
  p:['<p>Automatiza la generación de casos de uso <b>directamente en Jira</b> a partir de requisitos en Jira/Confluence, para una entidad de pagos de un grupo bancario español. Construido sobre <b>Azure</b>.</p>','<ul><li><b>Grafo de estados determinista con nodos LLM</b>: el flujo lo controla el grafo, no el modelo — cero sorpresas en un entorno regulado.</li><li><b>Retrieval híbrido</b> para anclar cada paso en los requisitos reales.</li><li><b>Structured outputs</b> en cada nodo: cada artefacto generado es trazable hasta su requisito de origen (exigencia regulatoria).</li><li>Integración de escritura en <b>Jira</b>: el sistema no sugiere casos de uso, los entrega donde trabaja el equipo.</li></ul>','<div class="stack"><span>Azure</span><span>state graph</span><span>structured outputs</span><span>Jira</span><span>trazabilidad</span></div>']},
-{id:'kbcib',type:'proyecto',n:'KG del CIB',t:'Knowledge graph — Corporate & Investment Banking',meta:'banco global tier-1 · cib · estructurado + no estructurado · producción',
+{id:'kbcib',type:'proyecto',n:'KG del CIB',t:'Knowledge graph — Corporate & Investment Banking',meta:'banco global tier-1 · cib · estructurado + no estructurado · producción',impact:'Documentación de 500+ páginas anidada, unificada y consultable',
  p:['<p>Grafo de conocimiento para el CIB que unifica <b>datos estructurados y no estructurados</b> en una sola capa consultable.</p>','<ul><li>La parte dura: documentación de <b>500+ páginas, anidada y complicada</b> — secciones dentro de secciones, anexos, referencias cruzadas. El parsing tiene que entender la jerarquía, no trocear a ciegas.</li><li><b>Chunking estructural</b> que respeta el anidamiento del documento, con metadatos de posición jerárquica para reconstruir contexto.</li><li><b>Retrieval híbrido semántico + léxico</b> combinado con <b>navegación por relaciones del grafo</b>: preguntas que un RAG plano no puede responder ("¿qué cláusulas dependen de X a través de Y?").</li><li>Los datos estructurados entran como entidades y relaciones tipadas; los no estructurados se anclan a esas entidades.</li><li>Infra en <b>AWS: Bedrock, S3, OpenSearch</b>.</li></ul>','<div class="stack"><span>knowledge graph</span><span>Bedrock</span><span>OpenSearch</span><span>chunking jerárquico</span><span>retrieval híbrido</span></div>']},
 {id:'kbgov',type:'proyecto',n:'KB Internal Governance',t:'Knowledge base — gobernanza interna',meta:'banco global tier-1 · aws bedrock · normativa interna',
  p:['<p>Knowledge base sobre <b>políticas y normativa interna</b> del banco — el dominio donde responder "aproximadamente" no vale.</p>','<ul><li><b>Trazabilidad a fuente en cada respuesta</b>: en gobernanza, citar el documento y la sección exacta no es un nice-to-have, es el requisito.</li><li>Mismos principios que el resto de mis KBs: chunking consciente de estructura, <b>retrieval híbrido</b> y evaluación con golden sets antes de ampliar cobertura.</li><li>Infra en <b>AWS Bedrock + OpenSearch</b>.</li></ul>','<div class="stack"><span>Bedrock</span><span>OpenSearch</span><span>trazabilidad</span><span>gobernanza</span></div>']},
-{id:'corpuscaixa',type:'proyecto',n:'Corpus FAQs · banca',t:'Generación del corpus — agente de FAQs en Salesforce',meta:'banco español tier-1 · salesforce · el corpus decide la calidad del agente',
+{id:'corpuscaixa',type:'proyecto',n:'Corpus FAQs · banca',t:'Generación del corpus — agente de FAQs en Salesforce',meta:'banco español tier-1 · salesforce · el corpus decide la calidad del agente',impact:'Corpus del agente de FAQs de un banco Tier-1 en Salesforce',
  p:['<p>Generación del <b>corpus que alimenta al agente conversacional de un banco español Tier-1 que resuelve FAQs en Salesforce</b>.</p>','<ul><li>Pipeline de <b>generación y curación del corpus</b>: consolidación de fuentes dispersas, deduplicación, normalización de respuestas.</li><li><b>Cobertura por intención</b>: mapear qué preguntan los usuarios de verdad contra lo que el corpus sabe responder — y cerrar los huecos.</li><li>Validación con negocio antes de publicar: un agente de FAQs es tan bueno como su peor respuesta.</li></ul>','<div class="stack"><span>generación de corpus</span><span>Salesforce</span><span>curación</span><span>cobertura de intents</span></div>']},
-{id:'evalfw',type:'proyecto',n:'Framework de evaluación',t:'Evaluación rigurosa de sistemas LLM',meta:'santander · el corazón del delivery',
+{id:'evalfw',type:'proyecto',n:'Framework de evaluación',t:'Evaluación rigurosa de sistemas LLM',meta:'santander · el corazón del delivery',impact:'La puerta que decide qué modelo y arquitectura llegan a producción',
  p:['<p>El framework que decide <b>qué arquitectura y qué modelo pasan a producción</b> — con criterios medibles, no intuición.</p>','<ul><li><b>Golden sets</b> curados con negocio: la referencia contra la que se mide todo.</li><li><b>LLM-as-a-judge</b> con rúbricas específicas por caso de uso y control de sesgo del juez.</li><li><b>Métricas NER</b> para evaluar extracción de entidades sobre documentos técnicos.</li><li>Resultado: selección de modelo/arquitectura defendible ante comités técnicos y de riesgo.</li></ul>','<div class="stack"><span>golden sets</span><span>LLM-as-a-judge</span><span>métricas NER</span></div>']},
 {id:'semantica',type:'proyecto',n:'Capa semántica AWS',t:'Capa semántica de conocimiento',meta:'santander · investigación aplicada',
  p:['<p>Contribuidor a una iniciativa de <b>capa semántica de conocimiento</b> sobre AWS: el paso de "documentos indexados" a "conocimiento estructurado".</p>','<ul><li>Orquestación con <b>Step Functions</b>, catálogo y ETL con <b>Glue y Athena</b>, generación con <b>Bedrock</b>.</li><li>Prototipos comparando <b>vector DBs</b> (OpenSearch, ChromaDB, FAISS) y <b>knowledge graphs</b> (Neo4j) para representación del conocimiento.</li><li><b>Este grafo que estás tocando aplica esos mismos principios</b>: entidades tipadas y relaciones con significado.</li></ul>','<div class="stack"><span>Bedrock</span><span>Step Functions</span><span>Glue</span><span>Athena</span><span>Neo4j</span></div>']},
@@ -417,13 +429,13 @@ const N = [
  p:['<p>Monté la librería de <b>assets de IA production-grade</b> del estudio y su organización de GitHub — para que cada proyecto no empiece de cero:</p>','<ul><li><b>Document intelligence</b>: extracción estructurada sobre documentos financieros.</li><li><b>Talk-to-your-data</b>: consulta en lenguaje natural sobre datos tabulares.</li><li><b>Onboarding automation</b> y referencias RAG completas.</li><li><b>Agentes en Slack y Teams</b> listos para desplegar en cliente.</li></ul>']},
 {id:'training',type:'proyecto',n:'Programa de formación',t:'Programa interno de formación en IA',meta:'future finance · todo el estudio',
  p:['<p>Diseñé y ejecuto el programa que ha formado <b>al estudio completo</b>, de junior a director:</p>','<ul><li>GenAI y fundamentos de LLMs, <b>RAG avanzado</b>, sistemas agénticos.</li><li><b>Evaluación</b>: golden sets, LLM-as-a-judge, métricas — la parte que casi nadie enseña.</li><li><b>Herramientas de AI coding</b> y flujos de trabajo agénticos para ingenieros y consultores.</li></ul>']},
-{id:'apps',type:'proyecto',n:'Apps con usuarios',t:'Productos de predicción y recomendación',meta:'personal · en producción · github.com/Danimr96',
+{id:'apps',type:'proyecto',n:'Apps con usuarios',t:'Productos de predicción y recomendación',meta:'personal · en producción · github.com/Danimr96',impact:'Productos propios con usuarios reales y monetización freemium',
  p:['<p>Apps full-stack construidas, desplegadas y operadas en solitario, <b>con usuarios reales y monetización freemium</b>:</p>','<ul><li><b>Motores de scoring propios</b> detrás de cada producto.</li><li>Stack: Next.js, Supabase, PostgreSQL, Vercel.</li><li>Todo el ciclo: producto, código, deploy, métricas, iteración.</li></ul>']},
 {id:'leads',type:'proyecto',n:'Agentes lead-handling',t:'Agentes conversacionales para negocio',meta:'personal · real estate y hospitality',
  p:['<p>Agentes de <b>gestión de leads sobre LLMs</b> para real estate y hospitality, con dashboards de gestión para el negocio.</p>','<ul><li><b>Structured outputs</b> para que cada conversación produzca datos accionables (intención, presupuesto, urgencia).</li><li>Backend en <b>FastAPI</b>, integración con APIs de LLM en streaming.</li></ul>']},
 {id:'pkm',type:'proyecto',n:'Sistema de conocimiento',t:'Sistema de conocimiento personal agéntico',meta:'personal · claude code · uso diario',
  p:['<p>Mi segundo cerebro, automatizado con <b>Claude Code</b>:</p>','<ul><li><b>Pipelines de ingesta agéntica</b>: el contenido entra solo, clasificado y enlazado.</li><li><b>Capa de playbooks</b> reutilizables sobre el conocimiento.</li><li><b>Slash commands custom e integraciones MCP</b> — tooling de desarrollador aplicado al conocimiento personal.</li></ul>','<p>Es el laboratorio donde pruebo lo que luego aplico en cliente.</p>']},
-{id:'estaweb',type:'proyecto',n:'Esta web',t:'Esta misma página',meta:'personal · la estás usando',
+{id:'estaweb',type:'proyecto',n:'Esta web',t:'Esta misma página',meta:'personal · la estás usando',impact:'Grafo + agente operando extremo a extremo por <5 €/mes',
  p:['<p>La web es la demo:</p>','<ul><li><b>Este grafo</b>: canvas 2D con simulación de fuerzas propia — repulsión, muelles, gravedad, deriva ambiental — sin librerías.</li><li><b>El agente</b>: API de Claude en streaming, prompt cacheado, gate de cualificación y coste por conversación a la vista.</li><li>Next.js 15 + Supabase + Vercel. Coste de operación: &lt;5€/mes.</li></ul>']},
 {id:'docintel',type:'proyecto',n:'Document intelligence',t:'Document intelligence',meta:'asset del estudio · future finance',
  p:['<p>Asset production-grade de <b>extracción estructurada sobre documentos financieros</b>: OCR + LLM + schemas de salida validados. Reutilizado en varios engagements como punto de partida.</p>']},
@@ -435,7 +447,7 @@ const N = [
  p:['<p><b>Agentes desplegables en las herramientas corporativas del cliente</b> (Slack, Teams): la vía más corta para que una organización toque IA útil en su día a día.</p>']},
 {id:'toolingeval',type:'proyecto',n:'Evaluación de tooling IA',t:'Evaluación de tooling de terceros',meta:'santander · criterio de compra',
  p:['<p>Cuando el banco evalúa herramientas de IA de terceros: <b>testing hands-on, diseño de planes de validación de POCs y supervisión de los despliegues</b>. La otra cara del builder: saber juzgar lo que venden otros.</p>']},
-{id:'limitesmx',type:'proyecto',n:'Límites de crédito · banco MX',t:'Optimización de límites de crédito',meta:'bluecap · banco mexicano de primer nivel · producción',
+{id:'limitesmx',type:'proyecto',n:'Límites de crédito · banco MX',t:'Optimización de límites de crédito',meta:'bluecap · banco mexicano de primer nivel · producción',impact:'Límites de crédito fijados por modelo para un banco MX de primer nivel',
  p:['<p><b>Optimización de límites de crédito basada en ML</b> para un banco mexicano de primer nivel: del límite fijado por política al límite fijado por modelo, con impacto directo en riesgo y negocio.</p>']},
 {id:'docauto',type:'proyecto',n:'Automatización documental',t:'Automatización documental y eficiencia operativa',meta:'bluecap · banca europea y latam',
  p:['<p>Iniciativas de <b>automatización documental y eficiencia operativa</b> para banca — la escuela de procesamiento de documentos que años después se convirtió en mi especialidad de document intelligence.</p>']},
@@ -935,14 +947,19 @@ function select(n){
   else {
     pBody.innerHTML =
       `<h2>${n.t}</h2><p class="meta">${n.meta}</p>` +
+      (n.impact ? `<div class="impact"><span class="impact-k">impacto</span><span>${n.impact}</span></div>` : '') +
       n.p.join('') +
       (n.cta ? `<button class="cta acc" data-go="agente">hablar con mi versión digital →</button>` : '') +
       relatedChips(n);
   }
   panel.classList.add('on');
   document.getElementById('hint').style.opacity = 0;
+  if (location.hash !== '#' + n.id) history.replaceState(null, '', '#' + n.id);
 }
-function deselect(){ selN = null; panel.classList.remove('on'); }
+function deselect(){
+  selN = null; panel.classList.remove('on');
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+}
 pBody.addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
   if (go) select(byId[go.dataset.go]);
@@ -1175,9 +1192,29 @@ document.getElementById('legalBtn').onclick = () => legal.classList.remove('off'
 document.getElementById('legalClose').onclick = () => legal.classList.add('off');
 legal.addEventListener('click', e => { if (e.target === legal) legal.classList.add('off'); });
 
+/* ════════ DEEP-LINKS ════════ */
+/* cada nodo es enlazable: talktomycv.vercel.app/#kbcib abre ese proyecto directamente */
+function openFromHash(){
+  const id = decodeURIComponent(location.hash.replace('#',''));
+  if (id && byId[id]){ intro.classList.add('off'); select(byId[id]); return true; }
+  return false;
+}
+addEventListener('hashchange', () => {
+  const id = decodeURIComponent(location.hash.replace('#',''));
+  if (id && byId[id]){ if (selN !== byId[id]) select(byId[id]); }
+  else if (selN) deselect();
+});
+
+/* ════════ REVELADO INICIAL (push-in cinematográfico sobre la entrada escalonada) ════════ */
+function introReveal(){
+  fitAll();                                  // fija el objetivo de cámara al encuadre completo
+  if (reduced || !camTarget) return;
+  cam.s = camTarget.s * .68;                 // arranca más abierto y deja que la cámara empuje hacia dentro
+}
+
 for (let i=0;i<180;i++) tick(0);
 alpha = .4;
-fitAll();
+if (!openFromHash()) introReveal();
 </script>
 
 </body>
