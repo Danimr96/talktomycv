@@ -174,6 +174,13 @@ button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer
 }
 .tourbtn:hover{border-color:var(--muted)}
 .tourbtn .play{color:var(--c-esp)}
+.tournav{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:35;
+  display:flex;align-items:center;gap:2px;background:var(--panel);border:1px solid var(--panel-border);
+  border-radius:10px;padding:4px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tournav.hidden{display:none}
+.tournav button{font-family:var(--mono);font-size:17px;color:var(--muted);width:40px;height:34px;display:grid;place-items:center;border-radius:7px;transition:color .12s,background .12s}
+.tournav button:hover{color:var(--text);background:var(--input)}
+#tourCount{font-size:11px;color:var(--text);padding:0 8px;min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
 
 .hint{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:15;
@@ -335,6 +342,11 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 </div>
 
 <div class="controls">
+  <div class="tournav hidden" id="tourNav">
+    <button id="tourPrev" aria-label="anterior">‹</button>
+    <span id="tourCount" class="mono"></span>
+    <button id="tourNext" aria-label="siguiente">›</button>
+  </div>
   <button class="tourbtn" id="tourBtn"><span class="play">▶</span> recorrido guiado</button>
   <div class="ctl">
     <button id="zin" aria-label="Acercar">+</button>
@@ -1476,21 +1488,31 @@ async function send(text){
 
 /* ════════ RECORRIDO ════════ */
 const TOUR = ['dani','adif','deloitte','bluecap','futurefinance','santander','kbcib','kb12m','pkm','estaweb','agente'];
+const TOUR_MS = 8000;                 /* auto-avance (antes 3600) — y con prev/next manual */
 let tourI = -1, tourTimer = null;
 const tourBtn = document.getElementById('tourBtn');
-function stepTour(){
-  tourI++;
-  if (tourI >= TOUR.length){ stopTour(); return; }
+const tourNav = document.getElementById('tourNav');
+const touring = () => !tourNav.classList.contains('hidden');
+function clearTour(){ if (tourTimer){ clearTimeout(tourTimer); tourTimer = null; } }
+function gotoStep(i){
+  clearTour();
+  if (i >= TOUR.length){ stopTour(); return; }
+  tourI = Math.max(0, i);
   tourBtn.innerHTML = `<span class="play">■</span> ${T().tourStop(tourI+1, TOUR.length)}`;
+  document.getElementById('tourCount').textContent = `${tourI+1} / ${TOUR.length}`;
+  document.getElementById('tourPrev').style.opacity = tourI === 0 ? .35 : 1;
   select(byId[TOUR[tourI]]);
-  tourTimer = setTimeout(stepTour, 3600);
+  tourTimer = setTimeout(() => gotoStep(tourI + 1), TOUR_MS);   /* pausa entre pasos */
 }
-function startTour(){ stopTour(); tourI = -1; stepTour(); }
+function startTour(){ stopTour(); tourNav.classList.remove('hidden'); gotoStep(0); }
 function stopTour(){
-  if (tourTimer){ clearTimeout(tourTimer); tourTimer = null; }
+  clearTour();
+  tourNav.classList.add('hidden');
   if (tourI >= 0){ tourBtn.innerHTML = `<span class="play">▶</span> ${T().tourBtn}`; tourI = -1; }
 }
-tourBtn.onclick = () => { if (tourTimer) stopTour(); else startTour(); };
+tourBtn.onclick = () => { touring() ? stopTour() : startTour(); };
+document.getElementById('tourNext').onclick = () => gotoStep(tourI + 1);
+document.getElementById('tourPrev').onclick = () => { if (tourI > 0) gotoStep(tourI - 1); };
 
 /* ════════ INTRO ════════ */
 const intro = document.getElementById('intro');
