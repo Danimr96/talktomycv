@@ -154,6 +154,9 @@ button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer
 
 /* ── controls ── */
 .controls{position:fixed;right:24px;bottom:24px;z-index:20;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+#mini{position:fixed;right:24px;bottom:140px;z-index:20;width:148px;height:108px;border:1px solid var(--line);border-radius:8px;background:var(--panel);opacity:.92;cursor:pointer;transition:opacity .15s}
+#mini:hover{opacity:1}
+@media(max-width:760px){#mini{display:none}}
 .ctl{
   display:flex;gap:1px;background:var(--panel);border:1px solid var(--panel-border);
   border-radius:8px;overflow:hidden;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -211,6 +214,8 @@ button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer
 }
 .impact{display:flex;align-items:baseline;gap:9px;margin:0 0 16px;padding:10px 13px;border:1px solid var(--line);border-left:2px solid var(--c-pro);border-radius:8px;background:var(--input)}
 .impact .impact-k{flex:none;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-pro)}
+.diag{display:block;margin:2px 0 14px}
+.diag text{font-family:var(--mono);font-size:9.5px}
 .impact span:last-child{font-size:13px;color:var(--text);font-weight:500;line-height:1.4}
 .rel-t{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 9px}
 .rels{display:flex;flex-wrap:wrap;gap:7px}
@@ -227,6 +232,9 @@ button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer
 }
 .cta:hover{opacity:.85;transform:translateY(-1px)}
 .cta.acc{background:var(--c-esp);color:#fff}
+.fitcta{display:flex;width:100%;justify-content:center;text-align:center;margin-top:12px;
+  background:transparent;color:var(--c-pro);border:1px dashed var(--c-pro);font-weight:500;line-height:1.35}
+.fitcta:hover{background:var(--input);opacity:1}
 
 /* gate + chat */
 .gform{display:flex;flex-direction:column;gap:14px;margin-top:14px}
@@ -310,6 +318,7 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
     <a href="#" data-m>email</a>
     <a href="https://www.linkedin.com/in/daniel-martinez-rebolledo-502632171" target="_blank" rel="noopener">linkedin</a>
     <a href="https://github.com/Danimr96" target="_blank" rel="noopener">github</a>
+    <a href="/cv.pdf" target="_blank" rel="noopener">cv (pdf)</a>
     <button id="legalBtn">aviso legal</button>
   </nav>
 </div>
@@ -334,6 +343,8 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 </div>
 
 <p class="hint" id="hint">arrastra los nodos · rueda para zoom · clic para leer</p>
+
+<canvas id="mini" width="296" height="216" aria-label="Minimapa de orientación" title="minimapa — clic para navegar"></canvas>
 
 <aside class="panel" id="panel" aria-live="polite">
   <div class="panel-head">
@@ -366,6 +377,7 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
       <button class="cta acc" id="startTour">▶ &nbsp;recorrido guiado</button>
       <button class="cta" id="freeExplore" style="background:var(--input);color:var(--text);border:1px solid var(--line)">explorar libre</button>
     </div>
+    <button class="cta fitcta" id="introFit">¿tienes una vacante? pega la JD y te digo dónde encajo — y dónde no</button>
   </div>
 </div>
 
@@ -436,7 +448,7 @@ const N = [
 {id:'pkm',type:'proyecto',n:'Sistema de conocimiento',t:'Sistema de conocimiento personal agéntico',meta:'personal · claude code · uso diario',
  p:['<p>Mi segundo cerebro, automatizado con <b>Claude Code</b>:</p>','<ul><li><b>Pipelines de ingesta agéntica</b>: el contenido entra solo, clasificado y enlazado.</li><li><b>Capa de playbooks</b> reutilizables sobre el conocimiento.</li><li><b>Slash commands custom e integraciones MCP</b> — tooling de desarrollador aplicado al conocimiento personal.</li></ul>','<p>Es el laboratorio donde pruebo lo que luego aplico en cliente.</p>']},
 {id:'estaweb',type:'proyecto',n:'Esta web',t:'Esta misma página',meta:'personal · la estás usando',impact:'Grafo + agente operando extremo a extremo por <5 €/mes',
- p:['<p>La web es la demo:</p>','<ul><li><b>Este grafo</b>: canvas 2D con simulación de fuerzas propia — repulsión, muelles, gravedad, deriva ambiental — sin librerías.</li><li><b>El agente</b>: API de Claude en streaming, prompt cacheado, gate de cualificación y coste por conversación a la vista.</li><li>Next.js 15 + Supabase + Vercel. Coste de operación: &lt;5€/mes.</li></ul>']},
+ p:['<p>La web es la demo:</p>','<ul><li><b>Este grafo</b>: canvas 2D con simulación de fuerzas propia — repulsión, muelles, gravedad, deriva ambiental — sin librerías.</li><li><b>El agente</b>: API de Claude en streaming, prompt cacheado, gate de cualificación y coste por conversación a la vista.</li><li>Next.js 15 + Supabase + Vercel. Coste de operación: &lt;5€/mes.</li></ul>','<p style=\"margin-top:10px\"><a href=\"https://github.com/Danimr96/talktomycv\" target=\"_blank\" rel=\"noopener\">ver el código en GitHub &rarr;</a> &mdash; esta misma web es open source.</p>']},
 {id:'docintel',type:'proyecto',n:'Document intelligence',t:'Document intelligence',meta:'asset del estudio · future finance',
  p:['<p>Asset production-grade de <b>extracción estructurada sobre documentos financieros</b>: OCR + LLM + schemas de salida validados. Reutilizado en varios engagements como punto de partida.</p>']},
 {id:'ttyd',type:'proyecto',n:'Talk-to-your-data',t:'Talk-to-your-data',meta:'asset del estudio · future finance',
@@ -700,6 +712,14 @@ function nodeAlpha(n){
   return neighbors[focus.id].has(n.id) ? 1 : .13;
 }
 let start = performance.now();
+/* forma por tipo: codifica el tipo de nodo sin añadir texto (proyecto=cuadrado, rol=hexágono, dominio=rombo) */
+function shapePath(x,y,r,type){
+  ctx.beginPath();
+  if (type==='proyecto'){ const s=r*0.9; ctx.roundRect(x-s,y-s,s*2,s*2,Math.min(4,r*0.42)); return; }
+  if (type==='rol'){ for(let i=0;i<6;i++){const a=Math.PI/6+i*Math.PI/3,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r; i?ctx.lineTo(px,py):ctx.moveTo(px,py);} ctx.closePath(); return; }
+  if (type==='dominio'){ ctx.moveTo(x,y-r);ctx.lineTo(x+r,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r,y);ctx.closePath(); return; }
+  ctx.arc(x,y,r,0,7);
+}
 function draw(now){
   const elapsed = now - start;
   if (camTarget){
@@ -766,12 +786,12 @@ function draw(now){
       ctx.globalAlpha = al;
     }
     ctx.fillStyle = COL[n.type];
-    ctx.beginPath(); ctx.arc(sx,sy,r,0,7); ctx.fill();
+    shapePath(sx,sy,r,n.type); ctx.fill();
 
     if (n.hk > .03){
       ctx.globalAlpha = al * n.hk;
       ctx.strokeStyle = COL[n.type]; ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.arc(sx,sy,r+4.5,0,7); ctx.stroke();
+      shapePath(sx,sy,r+4.5,n.type); ctx.stroke();
       ctx.globalAlpha = al;
     }
 
@@ -802,6 +822,7 @@ function draw(now){
   }
 
   ctx.globalAlpha = 1;
+  if ((miniTick = (miniTick+1)%3) === 0) drawMini();
   tick(now);
   requestAnimationFrame(draw);
 }
@@ -892,6 +913,39 @@ document.getElementById('zin').onclick = () => { camTarget = {x:cam.x,y:cam.y,s:
 document.getElementById('zout').onclick = () => { camTarget = {x:cam.x,y:cam.y,s:Math.max(.25,cam.s/1.35)}; stopTour(); };
 document.getElementById('zfit').onclick = () => { fitAll(); stopTour(); };
 
+/* ════════ MINIMAPA ════════ */
+const mini = document.getElementById('mini'), mctx = mini.getContext('2d');
+let miniB = null, miniTick = 0;
+function drawMini(){
+  const w = mini.width, h = mini.height;
+  mctx.clearRect(0,0,w,h);
+  let minX=1e9,maxX=-1e9,minY=1e9,maxY=-1e9;
+  for (const n of nodes){ if(hidden.has(n.type))continue; minX=Math.min(minX,n.x);maxX=Math.max(maxX,n.x);minY=Math.min(minY,n.y);maxY=Math.max(maxY,n.y); }
+  if (minX>maxX) return;
+  const pad=50; minX-=pad;maxX+=pad;minY-=pad;maxY+=pad;
+  const sc = Math.min(w/(maxX-minX), h/(maxY-minY))*.94;
+  const ox = (w-(maxX-minX)*sc)/2, oy = (h-(maxY-minY)*sc)/2;
+  miniB = {minX,minY,sc,ox,oy};
+  const mp = (x,y)=>[ox+(x-minX)*sc, oy+(y-minY)*sc];
+  for (const n of nodes){ if(hidden.has(n.type))continue;
+    const [px,py]=mp(n.x,n.y);
+    mctx.globalAlpha=.9; mctx.fillStyle=COL[n.type];
+    mctx.beginPath(); mctx.arc(px,py,Math.max(1.1,n.r*sc*.55),0,7); mctx.fill();
+  }
+  const [c1x,c1y]=s2world(0,0), [c2x,c2y]=s2world(W,H);
+  const [rx1,ry1]=mp(c1x,c1y), [rx2,ry2]=mp(c2x,c2y);
+  mctx.globalAlpha=1; mctx.strokeStyle=COL.text; mctx.lineWidth=1.2;
+  mctx.strokeRect(rx1,ry1,rx2-rx1,ry2-ry1);
+}
+mini.addEventListener('click', e => {
+  if (!miniB) return;
+  const rect = mini.getBoundingClientRect();
+  const mx = (e.clientX-rect.left)/rect.width*mini.width;
+  const my = (e.clientY-rect.top)/rect.height*mini.height;
+  camTarget = { x: miniB.minX+(mx-miniB.ox)/miniB.sc, y: miniB.minY+(my-miniB.oy)/miniB.sc, s: cam.s };
+  stopTour();
+});
+
 /* ════════ LEYENDA ════════ */
 const counts = {};
 nodes.forEach(n => counts[n.type]=(counts[n.type]||0)+1);
@@ -937,6 +991,27 @@ function relatedChips(n){
   return `<p class="rel-t">conectado con</p><div class="rels">` +
     rels.map(r => `<button data-go="${r.id}"><span class="dot" style="background:var(${TYPES[r.type].color})"></span>${r.n}</button>`).join('') + `</div>`;
 }
+
+/* ════════ MINI-DIAGRAMAS DE ARQUITECTURA (SVG, tema-aware vía CSS vars) ════════ */
+const DIA = {
+  kbcib:[{t:'Docs 500+ pág · anidadas',a:'--c-pro'},{t:'Chunking jerárquico (estructura)'},{t:'Retrieval híbrido + grafo (Neo4j)',a:'--c-skill'},{t:'Respuesta con trazabilidad',a:'--c-pro'}],
+  caixa:[{t:'Requisitos (Jira / Confluence)',a:'--c-pro'},{t:'Grafo de estados determinista',a:'--c-skill'},{t:'Nodos LLM + structured outputs'},{t:'Casos de uso escritos en Jira',a:'--c-pro'}],
+  kb12m:[{t:'Docs operativos heterogéneos',a:'--c-pro'},{t:'Chunking estructural'},{t:'Retrieval híbrido + metadatos',a:'--c-skill'},{t:'Asistente · ~12M llamadas/año',a:'--c-pro'}],
+  evalfw:[{t:'Golden set (curado con negocio)',a:'--c-pro'},{t:'Sistema LLM candidato'},{t:'LLM-as-judge + métricas NER',a:'--c-skill'},{t:'Veredicto: deploy / no deploy',a:'--c-esp'}],
+};
+function buildDiagram(steps){
+  const bw=280, bh=30, gap=17, x=10; let y=4; const parts=[];
+  steps.forEach((s,i)=>{
+    parts.push(`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="6" fill="var(--input)" stroke="${s.a?`var(${s.a})`:'var(--line)'}" stroke-width="${s.a?1.4:1}"/>`);
+    parts.push(`<text x="${x+bw/2}" y="${y+bh/2+3.4}" text-anchor="middle" fill="${s.a?`var(${s.a})`:'var(--text)'}">${s.t}</text>`);
+    if (i<steps.length-1) parts.push(`<line x1="150" y1="${y+bh}" x2="150" y2="${y+bh+gap}" stroke="var(--muted)" stroke-width="1.1" marker-end="url(#dar)"/>`);
+    y += bh+gap;
+  });
+  return `<svg class="diag" viewBox="0 0 300 ${y-gap+6}" width="100%" role="img" aria-label="Diagrama de arquitectura">`+
+    `<defs><marker id="dar" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--muted)" stroke-width="1.1"/></marker></defs>`+
+    parts.join('')+`</svg>`;
+}
+const diagramFor = n => DIA[n.id] ? `<p class="rel-t" style="margin-top:18px">arquitectura</p>${buildDiagram(DIA[n.id])}` : '';
 function select(n){
   selN = n; hoverN = null;
   ripple = {n, t:performance.now()};
@@ -949,6 +1024,7 @@ function select(n){
       `<h2>${n.t}</h2><p class="meta">${n.meta}</p>` +
       (n.impact ? `<div class="impact"><span class="impact-k">impacto</span><span>${n.impact}</span></div>` : '') +
       n.p.join('') +
+      diagramFor(n) +
       (n.cta ? `<button class="cta acc" data-go="agente">hablar con mi versión digital →</button>` : '') +
       relatedChips(n);
   }
@@ -1048,6 +1124,7 @@ function renderChat(){
         <button data-q="¿Qué experiencia real tienes desplegando ML en producción, más allá de POCs?">¿producción de verdad?</button>
         <button data-q="¿Cuál es tu historia con Bluecap y Globant?">¿bluecap → globant?</button>
         <button data-q="¿Por qué escucharías ofertas siendo Head of AI?">¿por qué escuchas ofertas?</button>
+        <button data-q="Genérame un resumen del encaje de Dani con nuestra vacante que pueda reenviar a mi equipo: fortalezas, gaps honestos y siguientes pasos.">📋 resumen para mi equipo</button>
       </div>
       <form class="crow" id="composer">
         <input id="ci" maxlength="4000" placeholder="pregúntame lo que le preguntarías a Dani…" autocomplete="off">
@@ -1177,6 +1254,7 @@ tourBtn.onclick = () => { if (tourTimer) stopTour(); else startTour(); };
 const intro = document.getElementById('intro');
 document.getElementById('startTour').onclick = () => { intro.classList.add('off'); startTour(); };
 document.getElementById('freeExplore').onclick = () => { intro.classList.add('off'); fitAll(); };
+document.getElementById('introFit').onclick = () => { intro.classList.add('off'); select(byId['agente']); };
 
 
 /* email ofuscado: se construye en runtime, no está en el HTML */
