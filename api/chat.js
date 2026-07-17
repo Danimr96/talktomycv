@@ -70,7 +70,7 @@ export default async function handler(req) {
   if (!up.ok) return json({ error: 'El agente no está disponible ahora mismo.' }, 502);
 
   const enc = new TextEncoder(), dec = new TextDecoder();
-  let assistant = '', tin = 0, tout = 0, buf = '';
+  let assistant = '', tin = 0, tout = 0, buf = '', cacheRead = 0, cacheWrite = 0;
 
   const stream = new ReadableStream({
     async start(ctrl) {
@@ -92,7 +92,9 @@ export default async function handler(req) {
               send({ t: ev.delta.text });
             } else if (ev.type === 'message_start' && ev.message && ev.message.usage) {
               const u = ev.message.usage;
-              tin = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) + (u.cache_read_input_tokens || 0);
+              cacheRead = u.cache_read_input_tokens || 0;
+              cacheWrite = u.cache_creation_input_tokens || 0;
+              tin = (u.input_tokens || 0) + cacheWrite + cacheRead;
             } else if (ev.type === 'message_delta' && ev.usage) {
               tout = ev.usage.output_tokens || tout;
             }
@@ -117,7 +119,12 @@ export default async function handler(req) {
           method: 'POST', prefer: 'resolution=merge-duplicates,return=minimal',
           body: { day: todayISO(), cost_eur: spendToday + cost },
         });
-        send({ usage: { model, tin, tout, cost_eur: cost, session_tokens: totIn + totOut, session_cost: totCost, budget: BUDGET_TOKENS } });
+        send({ usage: {
+          model, tin, tout, cost_eur: cost,
+          cache_read: cacheRead, cache_write: cacheWrite,
+          session_tokens: totIn + totOut, session_cost: totCost,
+          budget: BUDGET_TOKENS, msgs_used: sess.msg_count + 1, msgs_max: MAX_MSGS,
+        } });
         ctrl.enqueue(enc.encode('data: [DONE]\n\n'));
       } catch {
         send({ error: 'stream' });

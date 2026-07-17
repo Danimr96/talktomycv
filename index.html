@@ -252,6 +252,16 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 .qchips button:hover{color:var(--text);border-color:var(--muted)}
 .crow{display:flex;gap:8px}
 .crow button{font-size:12.5px;font-weight:500;color:var(--bg);background:var(--text);border-radius:8px;padding:0 16px}
+.telebtn{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 0 10px;text-align:left}
+.telebtn:hover{color:var(--text)}
+.tele{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+.tele.hidden{display:none}
+.trow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.trow b{margin-left:auto;color:var(--text);font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.meter{flex:1;height:4px;background:var(--input);border-radius:99px;overflow:hidden;min-width:50px}
+.meter i{display:block;height:100%;width:0%;background:var(--c-skill);border-radius:99px;transition:width .4s ease}
+.guard{font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--muted);border-top:1px solid var(--line);padding-top:9px;line-height:1.9}
+.guard b{color:var(--c-skill);font-weight:500}
 
 /* ── intro ── */
 .intro{
@@ -939,7 +949,7 @@ pBody.addEventListener('click', e => {
 });
 
 /* ════════ AGENTE (real: /api/gate + /api/chat) ════════ */
-const agent = { token:null, log:[], sessTokens:0, sessCost:0, busy:false, r:null };
+const agent = { token:null, log:[], sessTokens:0, sessCost:0, busy:false, r:null, perModel:{}, msgs:0, msgsMax:25, cache:'\u2014' };
 const fmtE = x => x.toLocaleString('es-ES',{minimumFractionDigits:3,maximumFractionDigits:3});
 
 function renderAgente(){ agent.token ? renderChat() : renderGate(); }
@@ -1007,6 +1017,15 @@ function renderChat(){
     <p class="meta">sesión: ${agent.r.empresa} · eres tú quien habla con una IA</p>
     <div class="chatui on">
       <div class="tokenbar"><span>coste real de esta conversación (lo asumo yo)</span><b id="tok">0 tk · 0,000 €</b></div>
+      <button class="telebtn" id="teleBtn" type="button">▸ sala de máquinas — telemetría en vivo</button>
+      <div class="tele hidden" id="tele">
+        <div class="trow"><span>presupuesto de sesión</span><div class="meter"><i id="tMeter"></i></div><b id="tBudget">0,0k / 30k tk</b></div>
+        <div class="trow"><span>mensajes</span><b id="tMsgs">0 / 25</b></div>
+        <div class="trow"><span>haiku 4.5 · conversación</span><b id="tHaiku">—</b></div>
+        <div class="trow"><span>sonnet 5 · fit-check</span><b id="tSonnet">—</b></div>
+        <div class="trow"><span>prompt cache</span><b id="tCache">—</b></div>
+        <div class="guard">guardrails activos: <b>anti prompt-injection</b> · <b>rate limiting</b> por email e IP · <b>presupuesto</b> 30k tk/sesión · <b>kill-switch</b> de gasto diario · <b>RLS</b> deny-all · datos en la <b>UE</b> (Frankfurt) · retención 12 meses</div>
+      </div>
       <div class="chatlog" id="clog"></div>
       <div class="qchips" id="chips">
         <button data-q="¿Qué experiencia real tienes desplegando ML en producción, más allá de POCs?">¿producción de verdad?</button>
@@ -1020,6 +1039,11 @@ function renderChat(){
     </div>`;
   agent.log.forEach(m => appendM(m.cls, m.who, m.text));
   updateTok();
+  document.getElementById('teleBtn').addEventListener('click', () => {
+    const t = document.getElementById('tele'), b = document.getElementById('teleBtn');
+    const open = t.classList.toggle('hidden');
+    b.textContent = (open ? '▸' : '▾') + ' sala de máquinas — telemetría en vivo';
+  });
   document.getElementById('composer').addEventListener('submit', e => {
     e.preventDefault();
     const inp = document.getElementById('ci');
@@ -1033,9 +1057,29 @@ function renderChat(){
   });
 }
 
+function updateTele(u){
+  agent.sessTokens = u.session_tokens; agent.sessCost = u.session_cost;
+  agent.msgs = u.msgs_used; agent.msgsMax = u.msgs_max || 25;
+  const short = (u.model || '').includes('haiku') ? 'haiku' : 'sonnet';
+  const pm = agent.perModel[short] || (agent.perModel[short] = {tk:0, eur:0});
+  pm.tk += (u.tin + u.tout); pm.eur += u.cost_eur;
+  agent.cache = u.cache_read > 0 ? `hit · ${(u.cache_read/1000).toFixed(1)}k tk con −90% dto.`
+    : (u.cache_write > 0 ? 'write · cacheando el system prompt' : '—');
+  updateTok();
+}
 function updateTok(){
-  const el = document.getElementById('tok');
-  if (el) el.textContent = `${agent.sessTokens.toLocaleString('es-ES')} tk · ${fmtE(agent.sessCost)} €`;
+  const q = id => document.getElementById(id);
+  if (q('tok')) q('tok').textContent = `${agent.sessTokens.toLocaleString('es-ES')} tk · ${fmtE(agent.sessCost)} €`;
+  if (!q('tele')) return;
+  const pct = Math.min(100, agent.sessTokens / 30000 * 100);
+  q('tMeter').style.width = pct + '%';
+  q('tMeter').style.background = pct > 85 ? 'var(--c-esp)' : 'var(--c-skill)';
+  q('tBudget').textContent = `${(agent.sessTokens/1000).toFixed(1)}k / 30k tk · quedan ${Math.max(0,(30000-agent.sessTokens)/1000).toFixed(1)}k`;
+  q('tMsgs').textContent = `${agent.msgs} / ${agent.msgsMax}`;
+  const f = m => agent.perModel[m] ? `${(agent.perModel[m].tk/1000).toFixed(1)}k tk · ${fmtE(agent.perModel[m].eur)} €` : '—';
+  q('tHaiku').textContent = f('haiku');
+  q('tSonnet').textContent = f('sonnet');
+  q('tCache').textContent = agent.cache;
 }
 function appendM(cls, who, text){
   const log = document.getElementById('clog'); if (!log) return null;
@@ -1083,7 +1127,7 @@ async function send(text){
         if (payload === '[DONE]') continue;
         let ev; try{ ev = JSON.parse(payload); }catch{ continue; }
         if (ev.t){ entry.text += ev.t; if (node) node.textContent = entry.text; if (logEl) logEl.scrollTop = logEl.scrollHeight; }
-        if (ev.usage){ agent.sessTokens = ev.usage.session_tokens; agent.sessCost = ev.usage.session_cost; updateTok(); }
+        if (ev.usage){ updateTele(ev.usage); }
         if (ev.error){ entry.text += ' […la conexión se cortó; vuelve a intentarlo]'; if (node) node.textContent = entry.text; }
       }
     }

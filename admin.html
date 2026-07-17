@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>talktomycv · sala de control</title>
+<style>
+:root{
+  --bg:#0F1013; --text:#E9E7E2; --muted:#8E9096;
+  --line:rgba(255,255,255,.08); --panel:#16171B; --input:rgba(255,255,255,.05);
+  --green:#66BD93; --amber:#DCAF5C; --acc:#E2694F; --blue:#6FA3E8;
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#F4F3F0; --text:#1A1B1E; --muted:#70737A; --line:rgba(20,20,25,.1);
+    --panel:#FFFFFF; --input:rgba(20,20,25,.04); --green:#1F8A5B; --amber:#A87C1F; --acc:#C74A2F; --blue:#2E6BC4; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;font-size:14px;line-height:1.55;padding:28px 24px 60px}
+.mono{font-family:ui-monospace,Menlo,monospace}
+.wrap{max-width:1100px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+h1{font-size:16px;font-weight:650}
+h1 span{color:var(--muted);font-weight:400}
+.logout{font-size:12px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:6px;padding:5px 12px;cursor:pointer}
+.logout:hover{color:var(--text)}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:26px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.tile .v{font-size:24px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.tile .l{font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+h2{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;text-align:right}
+tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--input)}
+.chip{font-family:ui-monospace,Menlo,monospace;font-size:10px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--muted)}
+.chip.jd{border-color:var(--blue);color:var(--blue)}
+.empty{padding:28px;text-align:center;color:var(--muted);font-size:13px}
+
+/* transcripción */
+#transcript{margin-top:10px}
+.tmsg{padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;white-space:pre-wrap}
+.tmsg:last-child{border-bottom:0}
+.tmsg .who{font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+.tmsg.assistant .who{color:var(--green)}
+
+/* gate de token */
+#gate{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;padding:20px;z-index:10}
+#gate form{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px;width:min(360px,100%);display:flex;flex-direction:column;gap:12px}
+#gate p{font-size:13px;color:var(--muted)}
+#gate input{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--text);background:var(--input);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+#gate button{font-size:13px;font-weight:550;color:var(--bg);background:var(--text);border:0;border-radius:8px;padding:10px;cursor:pointer}
+.err{color:var(--acc);font-size:12px;display:none}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div id="gate">
+  <form id="gateForm">
+    <h1>sala de control<span> · talktomycv</span></h1>
+    <p>Introduce tu token de administración (ADMIN_TOKEN).</p>
+    <input id="tok" type="password" placeholder="token" autocomplete="off">
+    <p class="err" id="err">Token incorrecto.</p>
+    <button type="submit">entrar</button>
+  </form>
+</div>
+
+<div class="wrap hidden" id="app">
+  <header>
+    <h1>sala de control<span> · talktomycv · datos en Supabase (Frankfurt)</span></h1>
+    <button class="logout" id="logout">salir</button>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <h2>sesiones (últimas 200) — clic para ver la transcripción</h2>
+  <div class="card tablewrap">
+    <table>
+      <thead><tr><th>fecha</th><th>empresa</th><th>nombre</th><th>email</th><th>puesto</th><th>banda</th><th>modalidad</th><th>jd</th><th>msgs</th><th>tokens</th><th>coste €</th><th>estado</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty hidden" id="emptyRows">Aún no hay sesiones. Comparte la URL 🙂</div>
+  </div>
+
+  <h2 id="tTitle" class="hidden">transcripción</h2>
+  <div class="card hidden" id="transcript"></div>
+
+  <h2>gasto diario (kill-switch: 2 € / día)</h2>
+  <div class="card tablewrap">
+    <table>
+      <thead><tr><th>día</th><th>coste €</th></tr></thead>
+      <tbody id="daily"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const fmtE = x => (+x).toLocaleString('es-ES',{minimumFractionDigits:3,maximumFractionDigits:3});
+let TOKEN = sessionStorage.getItem('admtok') || '';
+
+async function api(body){
+  const r = await fetch('/api/admin',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:TOKEN,...body})});
+  if (r.status === 401) throw 'auth';
+  return r.json();
+}
+
+async function load(){
+  const d = await api({view:'summary'});
+  $('gate').classList.add('hidden'); $('app').classList.remove('hidden');
+  const ss = d.sessions || [], daily = d.daily || [];
+  const today = new Date().toISOString().slice(0,10);
+  const tokTotal = ss.reduce((a,s)=>a+s.tokens_in+s.tokens_out,0);
+  const costTotal = ss.reduce((a,s)=>a+parseFloat(s.cost_eur),0);
+  const hoy = ss.filter(s=>s.created_at.slice(0,10)===today);
+  const costHoy = (daily.find(x=>x.day===today)||{}).cost_eur || 0;
+  const empresas = new Set(ss.map(s=>(s.recruiters||{}).empresa||'')).size;
+  $('tiles').innerHTML = [
+    [ss.length,'sesiones'],[hoy.length,'sesiones hoy'],[empresas,'empresas'],
+    [(tokTotal/1000).toFixed(1)+'k','tokens'],[fmtE(costTotal)+' €','coste total'],[fmtE(costHoy)+' €','coste hoy'],
+  ].map(([v,l])=>`<div class="tile"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+
+  $('emptyRows').classList.toggle('hidden', ss.length>0);
+  $('rows').innerHTML = ss.map(s=>{
+    const r = s.recruiters||{};
+    return `<tr data-id="${s.id}">
+      <td class="mono">${s.created_at.slice(0,16).replace('T',' ')}</td>
+      <td><b>${esc(r.empresa)}</b></td><td>${esc(r.nombre)}</td><td class="mono">${esc(r.email)}</td>
+      <td>${esc(r.puesto)}</td><td class="mono">${esc(r.banda)}</td><td>${esc(r.modalidad)}</td>
+      <td>${r.jd?'<span class="chip jd">jd</span>':''}</td>
+      <td class="num">${s.msg_count}</td><td class="num">${((s.tokens_in+s.tokens_out)/1000).toFixed(1)}k</td>
+      <td class="num">${fmtE(s.cost_eur)}</td><td><span class="chip">${s.status}</span></td></tr>`;
+  }).join('');
+
+  $('daily').innerHTML = daily.map(x=>`<tr><td class="mono">${x.day}</td><td class="num">${fmtE(x.cost_eur)}</td></tr>`).join('')
+    || '<tr><td colspan="2" class="empty">sin gasto todavía</td></tr>';
+}
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
+
+document.addEventListener('click', async e => {
+  const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+  const d = await api({view:'session', session_id:tr.dataset.id});
+  $('tTitle').classList.remove('hidden'); $('transcript').classList.remove('hidden');
+  $('transcript').innerHTML = (d.messages||[]).map(m=>
+    `<div class="tmsg ${m.role}"><span class="who">${m.role==='user'?'recruiter':'agente'} · ${m.tokens} tk</span>${esc(m.content)}</div>`
+  ).join('') || '<div class="empty">sin mensajes</div>';
+  $('tTitle').scrollIntoView({behavior:'smooth'});
+});
+
+$('gateForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  TOKEN = $('tok').value.trim();
+  try { await load(); sessionStorage.setItem('admtok', TOKEN); }
+  catch { $('err').style.display = 'block'; }
+});
+$('logout').addEventListener('click', () => { sessionStorage.removeItem('admtok'); location.reload(); });
+
+if (TOKEN) load().catch(()=>{ sessionStorage.removeItem('admtok'); });
+</script>
+</body>
+</html>
