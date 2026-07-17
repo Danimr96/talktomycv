@@ -6,7 +6,7 @@
 <title>Daniel Martínez — grafo de conocimiento</title>
 <meta name="description" content="Daniel Martínez Rebolledo — Head of AI en Future Finance (Globant). Ocho años de IA en producción en banca, presentados como un grafo de conocimiento interactivo: knowledge graphs, RAG y sistemas multi-agente.">
 <meta property="og:title" content="Daniel Martínez — grafo de conocimiento">
-<meta property="og:description" content="Ocho años de IA en producción en banca, como grafo de conocimiento interactivo.">
+<meta property="og:description" content="Ocho años de IA en producción en banca, como grafo de conocimiento interactivo — con un agente que responde por mí.">
 <meta property="og:type" content="website">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
@@ -327,8 +327,8 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
     <p class="k">aviso legal y privacidad</p>
     <h2 style="font-size:18px">Sitio sencillo, política sencilla.</h2>
     <p><b>Titular:</b> Daniel Martínez Rebolledo · Madrid, España · <span data-m-text></span>. Web personal de presentación profesional, sin actividad comercial.</p>
-    <p><b>Datos personales:</b> esta versión no recoge ningún dato: no hay formularios, cookies ni analítica. El proveedor de hosting puede registrar datos técnicos (IP, user-agent) en sus logs por motivos de seguridad, bajo su propia política.</p>
-    <p><b>Transparencia sobre IA</b> (Reglamento UE 2024/1689): la "versión digital" anunciada es un agente de IA y se identificará siempre como tal; su activación irá acompañada de una política de privacidad específica y consentimiento previo al tratamiento de datos.</p>
+    <p><b>Datos personales (el agente):</b> si firmas el registro de visitas consientes que trate tu nombre, empresa, email corporativo, puesto, banda salarial, modalidad y la job description que aportes, con una única finalidad: personalizar la conversación con el agente y gestionar el contacto profesional posterior. Base jurídica: consentimiento (art. 6.1.a RGPD). Conservación: 12 meses. Fuera del registro no se recoge ningún dato; no hay cookies ni analítica. El hosting puede registrar datos técnicos (IP) en sus logs de seguridad.</p><p><b>Encargados del tratamiento:</b> Supabase (base de datos en Frankfurt, UE), Vercel (hosting) y Anthropic (procesamiento del chat en EE.UU., con DPA y cláusulas contractuales tipo; sin uso para entrenamiento). Derechos de acceso, rectificación y supresión: escríbeme (botón email).</p>
+    <p><b>Transparencia sobre IA</b> (Reglamento UE 2024/1689): "mi versión digital" es un agente de IA y se identifica como tal. Las conversaciones pueden ser revisadas por el titular para control de calidad y de abuso.</p>
     <p><b>Enlaces externos</b> (LinkedIn, GitHub) se rigen por las políticas de sus titulares. Las marcas citadas pertenecen a sus propietarios; las referencias a proyectos están anonimizadas y descritas en términos generales.</p>
     <p><b>Propiedad intelectual:</b> contenido y código © Daniel Martínez Rebolledo.</p>
     <div class="row"><button class="cta" id="legalClose">cerrar</button></div>
@@ -339,7 +339,7 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
   <div class="intro-card">
     <p class="k">daniel martínez rebolledo · head of ai</p>
     <h2>Ocho años de IA en producción en banca, presentados como lo que son: un sistema conectado.</h2>
-    <p>Cada nodo es un rol, un proyecto o una competencia, con su detalle técnico y sus conexiones reales — knowledge graphs, RAG y sistemas multi-agente en producción para banca Tier-1. Explóralo libremente o sigue el recorrido guiado. Mi <b>versión digital</b> — un agente que responderá por mí — está en construcción.</p>
+    <p>Cada nodo es un rol, un proyecto o una competencia, con su detalle técnico y sus conexiones reales — knowledge graphs, RAG y sistemas multi-agente en producción para banca Tier-1. Explóralo libremente, sigue el recorrido guiado, o pregunta a <b>mi versión digital</b>: un agente que responde por mí — y cada conversación la pago yo.</p>
     <div class="row">
       <button class="cta acc" id="startTour">▶ &nbsp;recorrido guiado</button>
       <button class="cta" id="freeExplore" style="background:var(--input);color:var(--text);border:1px solid var(--line)">explorar libre</button>
@@ -365,7 +365,7 @@ const TYPES = {
 
 const N = [
 {id:'dani',type:'yo',n:'Dani',t:'Daniel Martínez Rebolledo',meta:'head of ai · future finance (globant) · madrid',
- p:['<p><b>Head of AI en Future Finance (Globant) y Data &amp; AI Scientist en la Global AI Platform de Banco Santander.</b> Ocho años llevando IA a producción en el sector financiero: del riesgo de crédito y el scoring clásico a los sistemas RAG y multi-agente que hoy operan en bancos Tier-1.</p>','<h4>trayectoria</h4><ul><li><b>2020 · Bluecap Management Consulting</b> — consultoría estratégica y modelización de riesgo para banca europea y LATAM, con desarrollo hands-on.</li><li><b>2022 · Adquisición por Globant</b> — continuidad en el mismo equipo con alcance global; hoy es el estudio Future Finance.</li><li><b>2025 · Banco Santander</b> — incorporación a tiempo completo a la Global AI Platform: knowledge graphs, RAG, evaluación de LLMs y sistemas multi-agente en producción.</li><li><b>2026 · Head of AI</b> — dirección de todos los proyectos y propuestas de IA del estudio, del diseño de arquitectura a la calidad del delivery.</li></ul>','<h4>perfil</h4><p>Combino dirección técnica y ejecución: defino arquitecturas, lidero propuestas ante cliente, formo equipos — y sigo escribiendo código en producción. Especialidades: <b>knowledge bases y grafos de conocimiento, RAG avanzado, sistemas multi-agente y evaluación rigurosa de LLMs</b> en entornos regulados.</p>','<p>Este grafo es mi CV completo, con el detalle técnico de cada proyecto en su nodo. Empieza por los roles (ámbar) y proyectos (azul). Mi <b>versión digital</b> — un agente que responderá por mí — está en construcción.</p>'],
+ p:['<p><b>Head of AI en Future Finance (Globant) y Data &amp; AI Scientist en la Global AI Platform de Banco Santander.</b> Ocho años llevando IA a producción en el sector financiero: del riesgo de crédito y el scoring clásico a los sistemas RAG y multi-agente que hoy operan en bancos Tier-1.</p>','<h4>trayectoria</h4><ul><li><b>2020 · Bluecap Management Consulting</b> — consultoría estratégica y modelización de riesgo para banca europea y LATAM, con desarrollo hands-on.</li><li><b>2022 · Adquisición por Globant</b> — continuidad en el mismo equipo con alcance global; hoy es el estudio Future Finance.</li><li><b>2025 · Banco Santander</b> — incorporación a tiempo completo a la Global AI Platform: knowledge graphs, RAG, evaluación de LLMs y sistemas multi-agente en producción.</li><li><b>2026 · Head of AI</b> — dirección de todos los proyectos y propuestas de IA del estudio, del diseño de arquitectura a la calidad del delivery.</li></ul>','<h4>perfil</h4><p>Combino dirección técnica y ejecución: defino arquitecturas, lidero propuestas ante cliente, formo equipos — y sigo escribiendo código en producción. Especialidades: <b>knowledge bases y grafos de conocimiento, RAG avanzado, sistemas multi-agente y evaluación rigurosa de LLMs</b> en entornos regulados.</p>','<p>Este grafo es mi CV completo, con el detalle técnico de cada proyecto en su nodo. Empieza por los roles (ámbar) y proyectos (azul), o pregunta a <b>mi versión digital</b> — un agente que responde por mí, solo con hechos verificables.</p>'],
  cta:'agente'},
 
 /* ── roles ── */
@@ -414,7 +414,7 @@ const N = [
 {id:'pkm',type:'proyecto',n:'Sistema de conocimiento',t:'Sistema de conocimiento personal agéntico',meta:'personal · claude code · uso diario',
  p:['<p>Mi segundo cerebro, automatizado con <b>Claude Code</b>:</p>','<ul><li><b>Pipelines de ingesta agéntica</b>: el contenido entra solo, clasificado y enlazado.</li><li><b>Capa de playbooks</b> reutilizables sobre el conocimiento.</li><li><b>Slash commands custom e integraciones MCP</b> — tooling de desarrollador aplicado al conocimiento personal.</li></ul>','<p>Es el laboratorio donde pruebo lo que luego aplico en cliente.</p>']},
 {id:'estaweb',type:'proyecto',n:'Esta web',t:'Esta misma página',meta:'personal · la estás usando',
- p:['<p>La web es la demo:</p>','<ul><li><b>Este grafo</b>: canvas 2D con simulación de fuerzas propia — repulsión, muelles, gravedad, deriva ambiental — sin librerías.</li><li><b>El agente</b> (en construcción): API de Claude en streaming, prompt cacheado, gate de cualificación y coste por conversación a la vista.</li><li>Next.js 15 + Supabase + Vercel. Coste de operación: &lt;5€/mes.</li></ul>']},
+ p:['<p>La web es la demo:</p>','<ul><li><b>Este grafo</b>: canvas 2D con simulación de fuerzas propia — repulsión, muelles, gravedad, deriva ambiental — sin librerías.</li><li><b>El agente</b>: API de Claude en streaming, prompt cacheado, gate de cualificación y coste por conversación a la vista.</li><li>Next.js 15 + Supabase + Vercel. Coste de operación: &lt;5€/mes.</li></ul>']},
 {id:'docintel',type:'proyecto',n:'Document intelligence',t:'Document intelligence',meta:'asset del estudio · future finance',
  p:['<p>Asset production-grade de <b>extracción estructurada sobre documentos financieros</b>: OCR + LLM + schemas de salida validados. Reutilizado en varios engagements como punto de partida.</p>']},
 {id:'ttyd',type:'proyecto',n:'Talk-to-your-data',t:'Talk-to-your-data',meta:'asset del estudio · future finance',
@@ -493,9 +493,9 @@ const N = [
  p:['<p>Grado en Ingeniería de la Energía, Universidad Politécnica de Madrid. De las torres de alta tensión a los transformers — el chiste se cuenta solo.</p>']},
 
 /* ── especial ── */
-{id:'agente',type:'especial',n:'Mi versión digital',t:'Mi versión digital',meta:'agente · en construcción',p:[]},
+{id:'agente',type:'especial',n:'Mi versión digital',t:'Mi versión digital',meta:'agente · api de claude · lo pago yo',p:[]},
 {id:'makingof',type:'especial',n:'Cómo está hecha',t:'Cómo está hecha esta web',meta:'making-of',
- p:['<p><b>El grafo</b>: canvas 2D con simulación de fuerzas propia (repulsión O(n²), muelles con longitud de reposo por grado, gravedad al centro, deriva ambiental con fases por nodo) — sin librerías. Partículas de flujo en las aristas al enfocar, entrada escalonada, cámara animada.</p>','<p><b>Los datos</b>: nodos tipados y relaciones con significado — los mismos principios de modelado que uso en knowledge bases reales con Neo4j y OpenSearch.</p>','<p><b>El agente</b> (en construcción): API de Claude en streaming con system prompt cacheado, gate de cualificación, límites de presupuesto y defensas anti prompt-injection. Esta versión pública no recoge ningún dato personal.</p>','<p><b>El stack</b>: Next.js 15, Supabase, Vercel. Coste total de operación: &lt;5€/mes.</p>']},
+ p:['<p><b>El grafo</b>: canvas 2D con simulación de fuerzas propia (repulsión O(n²), muelles con longitud de reposo por grado, gravedad al centro, deriva ambiental con fases por nodo) — sin librerías. Partículas de flujo en las aristas al enfocar, entrada escalonada, cámara animada.</p>','<p><b>Los datos</b>: nodos tipados y relaciones con significado — los mismos principios de modelado que uso en knowledge bases reales con Neo4j y OpenSearch.</p>','<p><b>El agente</b>: API de Claude en streaming (Haiku 4.5 para chat, Sonnet 5 para fit-check) con prompt cacheado, gate con consentimiento, presupuesto por sesión y por día, rate limiting y defensas anti prompt-injection. Datos en Supabase (Frankfurt, UE) bajo RLS de denegación total.</p>','<p><b>El stack</b>: Next.js 15, Supabase, Vercel. Coste total de operación: &lt;5€/mes.</p>']},
 ];
 
 const E = [
@@ -938,17 +938,160 @@ pBody.addEventListener('click', e => {
   if (go) select(byId[go.dataset.go]);
 });
 
-/* ════════ AGENTE (en construcción) ════════ */
-function renderAgente(){
+/* ════════ AGENTE (real: /api/gate + /api/chat) ════════ */
+const agent = { token:null, log:[], sessTokens:0, sessCost:0, busy:false, r:null };
+const fmtE = x => x.toLocaleString('es-ES',{minimumFractionDigits:3,maximumFractionDigits:3});
+
+function renderAgente(){ agent.token ? renderChat() : renderGate(); }
+
+function renderGate(){
   pBody.innerHTML = `
     <h2>Mi versión digital</h2>
-    <p class="meta">en construcción · api de claude · streaming · prompt cacheado</p>
-    <p>Estoy construyendo un agente que responderá por mí: conocerá todo lo que hay en este grafo, tendrá <b>prohibido inventar</b>, mostrará el <b>coste de cada conversación</b> en tiempo real y ofrecerá un <b>fit-check honesto</b> contra tu job description — incluido dónde no encajo.</p>
-    <p>Mientras llega, la versión analógica responde rápido:</p>
-    <p style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-      <a class="cta acc" style="text-decoration:none" href="#" data-m>escríbeme →</a>
-      <a class="cta" style="text-decoration:none;background:var(--input);color:var(--text);border:1px solid var(--line)" href="https://www.linkedin.com/in/daniel-martinez-rebolledo-502632171" target="_blank" rel="noopener">linkedin</a>
-    </p>` + relatedChips(byId['agente']);
+    <p class="meta">api de claude · streaming · lo pago yo</p>
+    <p>Un agente que responde como yo, solo con hechos verificables — y <b>tiene prohibido inventar</b>. Cada conversación sale de mi bolsillo, así que te pido 30 segundos de contexto; a cambio, adapta sus respuestas a tu vacante y, si pegas la JD, te devuelve un <b>fit-check honesto</b> — incluido dónde no encajo.</p>
+    <form class="gform" id="gateForm">
+      <div class="f"><label>nombre</label><input id="gN" required maxlength="120" placeholder="Laura García"></div>
+      <div class="f"><label>empresa</label><input id="gC" required maxlength="120" placeholder="Huspy"></div>
+      <div class="f"><label>email corporativo</label><input id="gE" type="email" required maxlength="200" placeholder="laura@huspy.com"></div>
+      <div class="f"><label>puesto que cubrís</label><input id="gP" required maxlength="120" placeholder="Senior AI Engineer"></div>
+      <div class="f"><label>banda salarial</label><select id="gB" required>
+        <option value="" selected disabled>seleccionar…</option>
+        <option>&lt;60k €</option><option>60–75k €</option><option>75–90k €</option><option>90–110k €</option><option>&gt;110k €</option>
+      </select></div>
+      <div class="f"><label>modalidad</label><select id="gM" required>
+        <option value="" selected disabled>seleccionar…</option>
+        <option>Remoto</option><option>Híbrido Madrid</option><option>Presencial</option><option>Con reubicación</option>
+      </select></div>
+      <div class="f"><label>job description <em>· opcional — activa el fit-check</em></label><textarea id="gJ" maxlength="15000" placeholder="Pega la JD completa…"></textarea></div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="gConsent" required style="width:auto;margin-top:3px">
+        <span>Consiento el tratamiento de estos datos para personalizar la conversación y el contacto profesional posterior, según la <a href="#" id="gPriv" style="color:var(--c-esp)">política de privacidad</a>. Conservación: 12 meses.</span>
+      </label>
+      <button class="cta acc" type="submit" id="gGo">desbloquear el agente →</button>
+      <span class="gnote">base de datos en la UE · sin spam · hablarás con una IA, no con Dani</span>
+    </form>`;
+  document.getElementById('gPriv').addEventListener('click', e => { e.preventDefault(); document.getElementById('legal').classList.remove('off'); });
+  document.getElementById('gateForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const btn = document.getElementById('gGo');
+    btn.textContent = 'verificando…'; btn.disabled = true;
+    try{
+      const res = await fetch('/api/gate', {
+        method:'POST', headers:{'content-type':'application/json'},
+        body: JSON.stringify({ nombre:v('gN'), empresa:v('gC'), email:v('gE'), puesto:v('gP'),
+          banda:v('gB'), modalidad:v('gM'), jd:v('gJ'), consent: document.getElementById('gConsent').checked }),
+      });
+      const data = await res.json();
+      if (!res.ok){
+        btn.textContent = 'desbloquear el agente →'; btn.disabled = false;
+        alert(data.error === 'sleep' ? 'El agente ha alcanzado su límite de gasto de hoy. Vuelve mañana o usa el botón de email.' : (data.error || 'No se pudo crear la sesión.'));
+        return;
+      }
+      agent.token = data.token;
+      agent.r = { nombre:v('gN'), empresa:v('gC'), puesto:v('gP'), jd:v('gJ') };
+      renderChat();
+      agent.log.push({cls:'s', who:'', text:'sesión creada · prompt cacheado · contexto del registro inyectado'});
+      appendM('s','', 'sesión creada · prompt cacheado · contexto del registro inyectado');
+      send(agent.r.jd ? 'Hola, acabo de firmar el registro. He dejado la job description: hazme el fit-check.' : 'Hola, acabo de firmar el registro.');
+    } catch {
+      btn.textContent = 'desbloquear el agente →'; btn.disabled = false;
+      alert('Error de red. Prueba de nuevo.');
+    }
+  });
+}
+
+function renderChat(){
+  pBody.innerHTML = `
+    <h2>Mi versión digital</h2>
+    <p class="meta">sesión: ${agent.r.empresa} · eres tú quien habla con una IA</p>
+    <div class="chatui on">
+      <div class="tokenbar"><span>coste real de esta conversación (lo asumo yo)</span><b id="tok">0 tk · 0,000 €</b></div>
+      <div class="chatlog" id="clog"></div>
+      <div class="qchips" id="chips">
+        <button data-q="¿Qué experiencia real tienes desplegando ML en producción, más allá de POCs?">¿producción de verdad?</button>
+        <button data-q="¿Cuál es tu historia con Bluecap y Globant?">¿bluecap → globant?</button>
+        <button data-q="¿Por qué escucharías ofertas siendo Head of AI?">¿por qué escuchas ofertas?</button>
+      </div>
+      <form class="crow" id="composer">
+        <input id="ci" maxlength="4000" placeholder="pregúntame lo que le preguntarías a Dani…" autocomplete="off">
+        <button type="submit">enviar</button>
+      </form>
+    </div>`;
+  agent.log.forEach(m => appendM(m.cls, m.who, m.text));
+  updateTok();
+  document.getElementById('composer').addEventListener('submit', e => {
+    e.preventDefault();
+    const inp = document.getElementById('ci');
+    const t = inp.value.trim(); if (!t || agent.busy) return;
+    inp.value = '';
+    userM(t); send(t);
+  });
+  document.getElementById('chips').addEventListener('click', e => {
+    const btn = e.target.closest('[data-q]'); if (!btn || agent.busy) return;
+    userM(btn.dataset.q); send(btn.dataset.q);
+  });
+}
+
+function updateTok(){
+  const el = document.getElementById('tok');
+  if (el) el.textContent = `${agent.sessTokens.toLocaleString('es-ES')} tk · ${fmtE(agent.sessCost)} €`;
+}
+function appendM(cls, who, text){
+  const log = document.getElementById('clog'); if (!log) return null;
+  const el = document.createElement('div');
+  el.className = 'm ' + cls;
+  if (who) el.innerHTML = `<span class="who">${who}</span>`;
+  el.appendChild(document.createTextNode(text));
+  log.appendChild(el); log.scrollTop = log.scrollHeight;
+  return el;
+}
+function userM(t){ agent.log.push({cls:'u', who:'tú', text:t}); appendM('u','tú',t); }
+function sysNote(t){ agent.log.push({cls:'s', who:'', text:t}); appendM('s','',t); }
+
+async function send(text){
+  agent.busy = true;
+  const entry = {cls:'a', who:'dani · versión digital (IA)', text:''};
+  agent.log.push(entry);
+  const el = appendM('a', entry.who, '');
+  const node = el ? el.lastChild : null;
+  const logEl = document.getElementById('clog');
+  try{
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({ token: agent.token, message: text }),
+    });
+    if (!res.ok){
+      const data = await res.json().catch(() => ({}));
+      const msg = data.error === 'budget' ? 'Se acabó mi presupuesto contigo 🙂 — lo que queda, cuéntamelo en persona: usa el botón de email.'
+        : data.error === 'sleep' ? 'He alcanzado mi límite de gasto de hoy. Vuelve mañana, o escríbeme directamente con el botón de email.'
+        : data.error === 'invalid_session' ? 'La sesión ha caducado. Recarga la página para empezar otra.'
+        : (data.error || 'No estoy disponible ahora mismo. Prueba en unos minutos.');
+      entry.text = msg; if (node) node.textContent = msg;
+      agent.busy = false; return;
+    }
+    const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = '';
+    while (true){
+      const {done, value} = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, {stream:true});
+      let i;
+      while ((i = buf.indexOf('\n\n')) >= 0){
+        const chunk = buf.slice(0, i); buf = buf.slice(i + 2);
+        if (!chunk.startsWith('data: ')) continue;
+        const payload = chunk.slice(6);
+        if (payload === '[DONE]') continue;
+        let ev; try{ ev = JSON.parse(payload); }catch{ continue; }
+        if (ev.t){ entry.text += ev.t; if (node) node.textContent = entry.text; if (logEl) logEl.scrollTop = logEl.scrollHeight; }
+        if (ev.usage){ agent.sessTokens = ev.usage.session_tokens; agent.sessCost = ev.usage.session_cost; updateTok(); }
+        if (ev.error){ entry.text += ' […la conexión se cortó; vuelve a intentarlo]'; if (node) node.textContent = entry.text; }
+      }
+    }
+  } catch {
+    entry.text = entry.text || 'Error de red — vuelve a intentarlo.';
+    if (node) node.textContent = entry.text;
+  }
+  agent.busy = false;
 }
 
 /* ════════ RECORRIDO ════════ */
