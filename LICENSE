@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-NOTE ON PERSONAL CONTENT (not covered by the MIT license above):
-
-The MIT license applies to the CODE only. The personal résumé content — the
-career data and project descriptions, the agent persona and copy in
-`index.html` and `api/_prompt.js`, and the `cv.pdf` and `og.png` assets —
-describes a real person and is © Daniel Martínez Rebolledo. It is provided
-so you can see how the project works, not for reuse. Replace it with your own.
