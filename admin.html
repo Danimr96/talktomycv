@@ -109,7 +109,8 @@ let TOKEN = sessionStorage.getItem('admtok') || '';
 
 async function api(body){
   const r = await fetch('/api/admin',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token:TOKEN,...body})});
-  if (r.status === 401) throw 'auth';
+  if (r.status === 401) throw new Error('Token incorrecto (o el nuevo aún no está desplegado — haz "vercel --prod").');
+  if (!r.ok){ let m=''; try{ m=(await r.json()).error||''; }catch{} throw new Error(`Error ${r.status}${m?': '+m:''}`); }
   return r.json();
 }
 
@@ -160,7 +161,7 @@ $('gateForm').addEventListener('submit', async e => {
   e.preventDefault();
   TOKEN = $('tok').value.trim();
   try { await load(); sessionStorage.setItem('admtok', TOKEN); }
-  catch { $('err').style.display = 'block'; }
+  catch (err) { const e = $('err'); e.textContent = (err && err.message) || 'No se pudo entrar.'; e.style.display = 'block'; }
 });
 $('logout').addEventListener('click', () => { sessionStorage.removeItem('admtok'); location.reload(); });
 
