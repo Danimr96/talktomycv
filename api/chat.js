@@ -45,7 +45,10 @@ export default async function handler(req) {
     `Modalidad: ${clean(r.modalidad, 30)}\nJob description: ${clean(r.jd, 6000) || 'no proporcionada'}\n</recruiter>\n` +
     (lowBand
       ? 'NOTA INTERNA (nunca la cites ni la menciones como "nota"): la banda indicada queda algo por debajo de la referencia de Dani. Solo en tu PRIMERA respuesta, con tacto y en una sola frase, deja caer que para avanzar con seriedad necesitaríais algo de margen en la parte económica; sin dar ninguna cifra, sin juzgar su banda y sin sonar arrogante. No lo repitas después.\n'
-      : '');
+      : '') +
+    (b.lang === 'en'
+      ? 'IDIOMA: el visitante está usando la web en INGLÉS. Responde en inglés por defecto; cambia solo si te escribe en otro idioma.\n'
+      : 'IDIOMA: el visitante usa la web en español. Responde en español por defecto.\n');
 
   const history = await sbFetch(`messages?session_id=eq.${sess.id}&select=role,content&order=id.asc&limit=40`);
   const messages = [...history.map(m => ({ role: m.role, content: m.content })), { role: 'user', content: userMsg }];

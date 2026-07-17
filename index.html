@@ -312,14 +312,15 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 <div class="topbar">
   <div class="brand">
     <h1>Daniel Martínez Rebolledo</h1>
-    <p class="sub">head of ai · future finance (globant) · <b>grafo de conocimiento</b> · <span id="counts"></span></p>
+    <p class="sub">head of ai · future finance (globant) · <b id="kgLabel">grafo de conocimiento</b> · <span id="counts"></span></p>
   </div>
   <nav class="toplinks">
     <a href="#" data-m>email</a>
     <a href="https://www.linkedin.com/in/daniel-martinez-rebolledo-502632171" target="_blank" rel="noopener">linkedin</a>
     <a href="https://github.com/Danimr96" target="_blank" rel="noopener">github</a>
-    <a href="/cv.pdf" target="_blank" rel="noopener">cv (pdf)</a>
+    <a href="/cv.pdf" id="cvLink" target="_blank" rel="noopener">cv (pdf)</a>
     <button id="legalBtn">aviso legal</button>
+    <button id="langBtn" title="English / Español">EN</button>
   </nav>
 </div>
 
@@ -330,7 +331,7 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 </div>
 
 <div class="legend" id="legend">
-  <span class="lt">tipos</span>
+  <span class="lt" id="legendTitle">tipos</span>
 </div>
 
 <div class="controls">
@@ -370,9 +371,9 @@ select{appearance:none;-webkit-appearance:none;cursor:pointer;
 
 <div class="intro" id="intro">
   <div class="intro-card">
-    <p class="k">daniel martínez rebolledo · head of ai</p>
-    <h2>Ocho años de IA en producción en banca, presentados como lo que son: un sistema conectado.</h2>
-    <p>Cada nodo es un rol, un proyecto o una competencia, con su detalle técnico y sus conexiones reales — knowledge graphs, RAG y sistemas multi-agente en producción para banca Tier-1. Explóralo libremente, sigue el recorrido guiado, o pregunta a <b>mi versión digital</b>: un agente que responde por mí — y cada conversación la pago yo.</p>
+    <p class="k" id="introKicker">daniel martínez rebolledo · head of ai</p>
+    <h2 id="introH2">Ocho años de IA en producción en banca, presentados como lo que son: un sistema conectado.</h2>
+    <p id="introP">Cada nodo es un rol, un proyecto o una competencia, con su detalle técnico y sus conexiones reales — knowledge graphs, RAG y sistemas multi-agente en producción para banca Tier-1. Explóralo libremente, sigue el recorrido guiado, o pregunta a <b>mi versión digital</b>: un agente que responde por mí — y cada conversación la pago yo.</p>
     <div class="row">
       <button class="cta acc" id="startTour">▶ &nbsp;recorrido guiado</button>
       <button class="cta" id="freeExplore" style="background:var(--input);color:var(--text);border:1px solid var(--line)">explorar libre</button>
@@ -590,6 +591,244 @@ const E = [
 ['adif','forecast'],['forecast','mlclasico'],['forecast','dataeng'],
 ];
 
+/* ════════ i18n (EN) — traducciones; el ES vive en N/DIA/TYPES ════════ */
+const I18N_NODES = {
+dani:{n:'Dani',t:'Daniel Martínez Rebolledo',meta:'head of ai · future finance (globant) · madrid',
+ p:['<p><b>Head of AI at Future Finance (Globant) and Data &amp; AI Scientist on Banco Santander’s Global AI Platform.</b> Eight years taking AI to production in finance: from credit risk and classic scoring to the RAG and multi-agent systems now running in Tier-1 banks.</p>','<h4>career</h4><ul><li><b>2020 · Bluecap Management Consulting</b> — strategy consulting and hands-on risk modelling for European and LATAM banking.</li><li><b>2022 · Acquired by Globant</b> — same team, global scale; today the Future Finance studio.</li><li><b>2025 · Banco Santander</b> — full-time on the Global AI Platform: knowledge graphs, RAG, LLM evaluation and multi-agent systems in production.</li><li><b>2026 · Head of AI</b> — leading all of the studio’s AI projects and proposals, from architecture to delivery quality.</li></ul>','<h4>profile</h4><p>I combine technical leadership and execution: I define architectures, lead client proposals, train teams — and still write production code. Specialties: <b>knowledge bases and knowledge graphs, advanced RAG, multi-agent systems and rigorous LLM evaluation</b> in regulated environments.</p>','<p>This graph is my full CV, with the technical detail of each project in its node. Start with the roles (amber) and projects (blue), or ask <b>my digital version</b> — an agent that answers for me, with verifiable facts only.</p>']},
+adif:{n:'ADIF',t:'ADIF',meta:'intern · a few months, 2018–2019 · where it started',
+ p:['<p>A few-month internship: <b>forecasting</b> models and analytics dashboards for the high-voltage energy infrastructure of the rail network. A small node in this graph — but the first sign this was my thing.</p>']},
+deloitte:{n:'Deloitte Digital',t:'Deloitte Digital',meta:'junior associate data scientist · 2019–2020 · madrid',
+ p:['<p>Conversational AI before it was mainstream: <b>chatbots with Dialogflow, IBM Watson and NLP frameworks</b>, plus <b>deep-learning pipelines for text and image classification</b>. The NLP foundation that years later clicked with LLMs.</p>']},
+bluecap:{n:'Bluecap',t:'Bluecap Management Consulting',meta:'strategy consultant & data scientist · 2020–2022 · acquired by globant in 2022',
+ p:['<p>A high-end financial consulting boutique. This is where I became a professional: <b>strategy and models at once</b>, with executive-level interaction and defending results before committees.</p>','<ul><li><b>Credit risk and regulatory modelling</b> for European and LATAM banks.</li><li><b>ML for pre-approved lending:</b> income estimation, behavioural scoring, product limits.</li><li><b>ML-based credit-limit optimisation</b> for a top-tier Mexican bank.</li><li><b>ESG climate risk:</b> climate-adjusted PD and predictive default models for European and LATAM portfolios.</li></ul>','<p><b>In 2022 Globant acquired Bluecap.</b> Same team, more scale: today the Future Finance studio → follow the thread in that node.</p>']},
+futurefinance:{n:'Future Finance · Globant',t:'Future Finance Studio — Globant',meta:'2022–present · formerly bluecap · head of ai since 2026',
+ p:['<p>The Bluecap team inside Globant, now a studio specialised in banking. I kept growing here after the 2022 acquisition and <b>since 2026 I’m the studio’s Head of AI</b>.</p>','<ul><li><b>I lead every AI project and proposal</b> for Spanish and global Tier-1 banking: solution architecture, technical proposals, POC design and delivery quality.</li><li><b>Internal AI training programme</b> I designed and run — see the "Training programme" node.</li><li><b>Library of reusable AI assets</b> and internal GitHub org — see the "Asset library" node.</li><li><b>Knowledge base and RAG architectures</b> for large-scale client platforms — see the "12M contact-center KB" node.</li></ul>']},
+santander:{n:'Santander · Global AI Platform',t:'Global AI Platform — Banco Santander',meta:'data & ai scientist · 2025–present · full-time, as a Globant contractor',
+ p:['<p>Embedded full-time in the bank’s global AI platform team, as a Globant contractor. The most technical role of my career, in the most demanding environment:</p>','<ul><li><b>CIB knowledge graph</b>: structured + unstructured data, 500+ pages of nested documentation — see the "CIB knowledge graph" node.</li><li><b>Internal-governance KB</b> on AWS Bedrock, with source traceability — see the node.</li><li><b>Evaluation frameworks</b> with NER metrics, LLM-as-a-judge and golden sets — see the "Evaluation framework" node.</li><li><b>Assessment of third-party AI tooling:</b> hands-on testing, POC validation plans and deployment oversight.</li><li><b>Semantic knowledge layer</b> on AWS — see the "AWS semantic layer" node.</li></ul>']},
+kb12m:{n:'12M contact-center KB',t:'Knowledge base — contact center at scale',meta:'future finance · tier-1 banking · architecture',impact:'~12M calls/year handled by the virtual assistant',
+ p:['<p>Design of the knowledge base powering the virtual assistant of a banking contact center with <b>~12M calls/year</b>.</p>','<ul><li>Ingestion and normalisation of heterogeneous operational documentation.</li><li><b>Chunking by document structure</b> (not fixed size) to preserve procedure context.</li><li><b>Hybrid retrieval</b> — semantic + lexical — with metadata filtering.</li><li>Designed to run under a bank’s SLAs and traceability requirements.</li></ul>','<div class="stack"><span>AWS Bedrock</span><span>OpenSearch</span><span>hybrid retrieval</span><span>structural chunking</span></div>']},
+caixa:{n:'Multi-agent · payments',t:'Multi-agent system — use cases in Jira',meta:'payments entity of a spanish banking group · azure · production',impact:'Use cases generated straight into Jira, traceable to their requirement',
+ p:['<p>Automates the generation of use cases <b>straight into Jira</b> from requirements in Jira/Confluence, for the payments entity of a Spanish banking group. Built on <b>Azure</b>.</p>','<ul><li><b>Deterministic state graph with LLM nodes</b>: the graph controls the flow, not the model — no surprises in a regulated setting.</li><li><b>Hybrid retrieval</b> to ground each step in the actual requirements.</li><li><b>Structured outputs</b> at every node: each artefact is traceable to its source requirement (a regulatory requirement).</li><li>Write integration with <b>Jira</b>: the system doesn’t suggest use cases, it delivers them where the team works.</li></ul>','<div class="stack"><span>Azure</span><span>state graph</span><span>structured outputs</span><span>Jira</span><span>traceability</span></div>']},
+kbcib:{n:'CIB knowledge graph',t:'Knowledge graph — Corporate & Investment Banking',meta:'global tier-1 bank · cib · structured + unstructured · production',impact:'500+ pages of nested documentation, unified and queryable',
+ p:['<p>A knowledge graph for CIB that unifies <b>structured and unstructured data</b> into a single queryable layer.</p>','<ul><li>The hard part: <b>500+ pages of nested, complex documentation</b> — sections within sections, annexes, cross-references. The parsing has to understand the hierarchy, not chop blindly.</li><li><b>Structural chunking</b> that respects the document nesting, with hierarchical-position metadata to rebuild context.</li><li><b>Hybrid semantic + lexical retrieval</b> combined with <b>graph-relationship navigation</b>: questions a flat RAG can’t answer ("which clauses depend on X through Y?").</li><li>Structured data enters as typed entities and relationships; unstructured data is anchored to those entities.</li><li>Infra on <b>AWS: Bedrock, S3, OpenSearch</b>.</li></ul>','<div class="stack"><span>knowledge graph</span><span>Bedrock</span><span>OpenSearch</span><span>hierarchical chunking</span><span>hybrid retrieval</span></div>']},
+kbgov:{n:'Internal Governance KB',t:'Knowledge base — internal governance',meta:'global tier-1 bank · aws bedrock · internal policy',
+ p:['<p>A knowledge base over the bank’s <b>internal policies and regulation</b> — the domain where answering "roughly" isn’t good enough.</p>','<ul><li><b>Source traceability in every answer</b>: in governance, citing the exact document and section isn’t a nice-to-have, it’s the requirement.</li><li>Same principles as the rest of my KBs: structure-aware chunking, <b>hybrid retrieval</b>, and evaluation with golden sets before expanding coverage.</li><li>Infra on <b>AWS Bedrock + OpenSearch</b>.</li></ul>','<div class="stack"><span>Bedrock</span><span>OpenSearch</span><span>traceability</span><span>governance</span></div>']},
+corpuscaixa:{n:'FAQ corpus · banking',t:'Corpus generation — FAQ agent on Salesforce',meta:'spanish tier-1 bank · salesforce · the corpus decides the agent’s quality',impact:'Corpus for the FAQ agent of a Tier-1 bank on Salesforce',
+ p:['<p>Generation of the <b>corpus that powers the conversational FAQ agent of a Spanish Tier-1 bank on Salesforce</b>.</p>','<ul><li><b>Corpus generation and curation</b> pipeline: consolidating scattered sources, deduplication, answer normalisation.</li><li><b>Intent coverage</b>: mapping what users actually ask against what the corpus can answer — and closing the gaps.</li><li>Business sign-off before publishing: a FAQ agent is only as good as its worst answer.</li></ul>','<div class="stack"><span>corpus generation</span><span>Salesforce</span><span>curation</span><span>intent coverage</span></div>']},
+evalfw:{n:'Evaluation framework',t:'Rigorous evaluation of LLM systems',meta:'santander · the heart of delivery',impact:'The gate that decides which model and architecture reach production',
+ p:['<p>The framework that decides <b>which architecture and model go to production</b> — with measurable criteria, not intuition.</p>','<ul><li><b>Golden sets</b> curated with the business: the reference everything is measured against.</li><li><b>LLM-as-a-judge</b> with case-specific rubrics and judge-bias control.</li><li><b>NER metrics</b> to evaluate entity extraction over technical documents.</li><li>Result: a model/architecture choice that holds up before technical and risk committees.</li></ul>','<div class="stack"><span>golden sets</span><span>LLM-as-a-judge</span><span>NER metrics</span></div>']},
+semantica:{n:'AWS semantic layer',t:'Semantic knowledge layer',meta:'santander · applied research',
+ p:['<p>Contributor to a <b>semantic knowledge layer</b> initiative on AWS: the step from "indexed documents" to "structured knowledge".</p>','<ul><li>Orchestration with <b>Step Functions</b>, catalogue and ETL with <b>Glue and Athena</b>, generation with <b>Bedrock</b>.</li><li>Prototypes comparing <b>vector DBs</b> (OpenSearch, ChromaDB, FAISS) and <b>knowledge graphs</b> (Neo4j) for knowledge representation.</li><li><b>This very graph applies those same principles</b>: typed entities and meaningful relationships.</li></ul>','<div class="stack"><span>Bedrock</span><span>Step Functions</span><span>Glue</span><span>Athena</span><span>Neo4j</span></div>']},
+fraude:{n:'Multimodal fraud scoring',t:'Multimodal fraud-scoring pipeline',meta:'santander · digital-bank demo',
+ p:['<p><b>Multimodal</b> document fraud-scoring pipeline for a digital-bank demo: image + text signals combined into an actionable score.</p>']},
+docval:{n:'Document validation',t:'Document validation service',meta:'santander · fastapi',
+ p:['<p>A <b>FastAPI</b> service with <b>deterministic checks</b> for document validation: what rules can solve isn’t handed to an LLM. Engineering judgement, not hype.</p>']},
+precon:{n:'Pre-approved lending',t:'ML for pre-approved lending',meta:'bluecap · banking production',impact:'income · behavioural scoring · limits',
+ p:['<p>A model system for credit pre-approval:</p>','<ul><li><b>Income estimation</b> when the declared figure is missing or unreliable.</li><li><b>Behavioural scoring</b> over transaction data.</li><li><b>Product limits</b> and ML-based credit-limit optimisation for a top-tier Mexican bank.</li></ul>','<div class="stack"><span>XGBoost/LightGBM</span><span>feature engineering</span><span>scoring</span></div>']},
+esg:{n:'ESG climate risk',t:'Climate-risk models',meta:'bluecap · europe + latam',
+ p:['<p><b>Climate-adjusted PD</b> and predictive default/behaviour models for European and Latin-American credit portfolios — when climate risk went from a slide deck to a regulatory model.</p>']},
+assets:{n:'AI asset library',t:'Studio asset library and internal GitHub',meta:'future finance · delivery accelerators',
+ p:['<p>I built the studio’s <b>production-grade AI asset library</b> and its GitHub org — so no project starts from scratch:</p>','<ul><li><b>Document intelligence</b>: structured extraction over financial documents.</li><li><b>Talk-to-your-data</b>: natural-language querying over tabular data.</li><li><b>Onboarding automation</b> and complete RAG references.</li><li><b>Slack and Teams agents</b> ready to deploy at the client.</li></ul>']},
+training:{n:'Training programme',t:'Internal AI training programme',meta:'future finance · the whole studio',
+ p:['<p>I designed and run the programme that has trained <b>the entire studio</b>, from junior to director:</p>','<ul><li>GenAI and LLM fundamentals, <b>advanced RAG</b>, agentic systems.</li><li><b>Evaluation</b>: golden sets, LLM-as-a-judge, metrics — the part almost nobody teaches.</li><li><b>AI-coding tools</b> and agentic workflows for engineers and consultants.</li></ul>']},
+apps:{n:'Apps with users',t:'Prediction and recommendation products',meta:'personal · in production · github.com/Danimr96',impact:'Own products with real users and freemium monetisation',
+ p:['<p>Full-stack apps built, deployed and operated solo, <b>with real users and freemium monetisation</b>:</p>','<ul><li><b>Custom scoring engines</b> behind each product.</li><li>Stack: Next.js, Supabase, PostgreSQL, Vercel.</li><li>The whole cycle: product, code, deploy, metrics, iteration.</li></ul>']},
+leads:{n:'Lead-handling agents',t:'Conversational agents for business',meta:'personal · real estate and hospitality',
+ p:['<p><b>LLM-based lead-management agents</b> for real estate and hospitality, with management dashboards for the business.</p>','<ul><li><b>Structured outputs</b> so every conversation produces actionable data (intent, budget, urgency).</li><li>Backend in <b>FastAPI</b>, streaming integration with LLM APIs.</li></ul>']},
+pkm:{n:'Knowledge system',t:'Agentic personal knowledge system',meta:'personal · claude code · daily use',
+ p:['<p>My second brain, automated with <b>Claude Code</b>:</p>','<ul><li><b>Agentic ingestion pipelines</b>: content comes in on its own, classified and linked.</li><li><b>A layer of reusable playbooks</b> over the knowledge.</li><li><b>Custom slash commands and MCP integrations</b> — developer tooling applied to personal knowledge.</li></ul>','<p>It’s the lab where I test what I later apply at the client.</p>']},
+estaweb:{n:'This site',t:'This very page',meta:'personal · you’re using it',impact:'Graph + agent running end to end for under €5/month',
+ p:['<p>The site is the demo:</p>','<ul><li><b>This graph</b>: a 2D canvas with its own force simulation — repulsion, springs, gravity, ambient drift — no libraries.</li><li><b>The agent</b>: streaming Claude API, cached prompt, qualification gate and per-conversation cost on display.</li><li>Next.js 15 + Supabase + Vercel. Operating cost: &lt;€5/month.</li></ul>','<p style="margin-top:10px"><a href="https://github.com/Danimr96/talktomycv" target="_blank" rel="noopener">see the code on GitHub &rarr;</a> &mdash; this very site is open source.</p>']},
+docintel:{n:'Document intelligence',t:'Document intelligence',meta:'studio asset · future finance',
+ p:['<p>A production-grade asset for <b>structured extraction over financial documents</b>: OCR + LLM + validated output schemas. Reused across engagements as a starting point.</p>']},
+ttyd:{n:'Talk-to-your-data',t:'Talk-to-your-data',meta:'studio asset · future finance',
+ p:['<p>Natural-language querying <b>over tabular data</b>: from the business question to the analysis, with guardrails on what the model can and can’t run.</p>']},
+onboarding:{n:'Onboarding automation',t:'Onboarding automation',meta:'studio asset · future finance',
+ p:['<p>Automation of <b>banking onboarding</b> with integrated document validation — the flow where friction and fraud concentrate the most.</p>']},
+slackagents:{n:'Slack/Teams agents',t:'Agents in Slack and Teams',meta:'studio asset · future finance',
+ p:['<p><b>Agents deployable inside the client’s corporate tools</b> (Slack, Teams): the shortest path to an organisation touching useful AI day to day.</p>']},
+toolingeval:{n:'AI tooling assessment',t:'Third-party tooling assessment',meta:'santander · buying criteria',
+ p:['<p>When the bank evaluates third-party AI tools: <b>hands-on testing, POC validation plans and deployment oversight</b>. The flip side of the builder: knowing how to judge what others are selling.</p>']},
+limitesmx:{n:'Credit limits · MX bank',t:'Credit-limit optimisation',meta:'bluecap · top-tier mexican bank · production',impact:'Credit limits set by model for a top-tier MX bank',
+ p:['<p><b>ML-based credit-limit optimisation</b> for a top-tier Mexican bank: from policy-set limits to model-set limits, with direct impact on risk and business.</p>']},
+docauto:{n:'Document automation',t:'Document automation and operational efficiency',meta:'bluecap · european and latam banking',
+ p:['<p><b>Document-automation and operational-efficiency</b> initiatives for banking — the document-processing school that years later became my document-intelligence specialty.</p>']},
+chatbots19:{n:'Corporate chatbots',t:'Chatbots and conversational AI (2019)',meta:'deloitte digital',
+ p:['<p>Corporate chatbots with <b>Dialogflow, IBM Watson and NLP frameworks</b>. The pre-LLM era of conversational AI: intents, entities and a lot of hand-built pipeline. Context that today is gold for knowing what really changed.</p>']},
+dlclasif:{n:'Text/image classification',t:'DL classification pipelines',meta:'deloitte digital',
+ p:['<p>Deep-learning pipelines for <b>text and image classification</b> — my first networks in client production.</p>']},
+forecast:{n:'Energy forecasting',t:'High-voltage energy forecasting',meta:'adif · internship',
+ p:['<p><b>Energy-consumption forecasting</b> models and dashboards for the high-voltage rail network. Small, but it was the first.</p>']},
+python:{n:'Python',t:'Python',meta:'skill · expert · 8 years · my native technical tongue',
+ p:['<p>From feature engineering to production services: pandas/polars, APIs, tooling, tests. Everything I’ve shipped in 8 years goes through here.</p>']},
+fastapi:{n:'FastAPI',t:'FastAPI',meta:'skill · default backend',
+ p:['<p>Backend of my inference and validation services, the lead agents and client microservices. Pydantic as the contract: the same schemas I use for LLM structured outputs.</p>']},
+aws:{n:'AWS',t:'AWS',meta:'skill · primary cloud',
+ p:['<p><b>Bedrock</b> (models and agents), <b>OpenSearch</b> (hybrid retrieval), <b>S3, Lambda, Step Functions</b> (orchestration), <b>Glue and Athena</b> (catalogue and ETL). The infra behind all my work at Santander.</p>']},
+azure:{n:'Azure',t:'Azure',meta:'skill · second cloud',
+ p:['<p><b>Azure AI Search</b> for retrieval and <b>Form Recognizer</b> for document extraction. Enough to be dangerous in multi-cloud banking environments.</p>']},
+rag:{n:'Advanced RAG',t:'Advanced RAG',meta:'skill · core specialty',
+ p:['<p>RAG in production, not in notebooks:</p>','<ul><li><b>Parsing</b> of real documents: structure, tables, annexes.</li><li><b>Chunking</b> by structure and semantics, not fixed size.</li><li><b>Hybrid retrieval</b> — dense + lexical (BM25) — with metadata filters, and <b>reranking</b> when the case justifies it.</li><li>And the part almost everyone skips: <b>evaluation</b> — no golden set, no deployment.</li></ul>']},
+multiagente:{n:'Multi-agent',t:'Multi-agent systems',meta:'skill · specialty',
+ p:['<p>My technical stance: <b>in regulated environments, a deterministic state graph controls the flow and the LLM lives inside the nodes</b> — not the other way around. Structured outputs at every step for full traceability. "Free" agents are for prototyping.</p>']},
+evals:{n:'LLM evals',t:'LLM evaluation',meta:'skill · what separates poc from production',
+ p:['<p><b>Golden sets</b> curated with the business, <b>LLM-as-a-judge</b> with rubrics and judge-bias control, <b>NER metrics</b> for extraction. My rule: if you can’t measure it, don’t deploy it.</p>']},
+vectordb:{n:'Vector DBs',t:'Vector databases',meta:'skill · chosen by case, not by hype',
+ p:['<p><b>OpenSearch</b> when there’s already an AWS ecosystem and you need hybrid; <b>FAISS</b> for fast local experimentation; <b>ChromaDB</b> for prototypes; <b>Milvus</b> at scale. I’ve benchmarked all four myself.</p>']},
+neo4j:{n:'Knowledge graphs',t:'Knowledge graphs — Neo4j',meta:'skill · like this graph',
+ p:['<p>Knowledge modelling with <b>Neo4j</b>: typed entities, meaningful relationships, queries vector retrieval can’t answer ("which projects use X through Y?"). This graph is built on exactly those principles.</p>']},
+langchain:{n:'LangChain / LlamaIndex',t:'LLM orchestration frameworks',meta:'skill · with judgement',
+ p:['<p><b>LangChain and LlamaIndex</b> when they speed things up, custom code when they get in the way. I’ve built with both — and known when to drop them when the overhead didn’t pay off. The framework isn’t the architecture.</p>']},
+mlclasico:{n:'Classic ML',t:'Classic ML',meta:'skill · the base of it all',
+ p:['<p><b>scikit-learn, XGBoost, CatBoost, LightGBM</b>. Scoring, forecasting, optimisation — in banking production since 2018. When a problem doesn’t need an LLM, I say so and save six zeros of infra.</p>']},
+dl:{n:'Deep learning',t:'Deep learning',meta:'skill',
+ p:['<p><b>PyTorch and TensorFlow</b>: text and image classification, multimodal pipelines, fine-tuning when it beats prompt engineering.</p>']},
+nlp:{n:'NLP',t:'NLP',meta:'skill · since before the llms',
+ p:['<p><b>Transformers (HuggingFace), NER, classification</b>. I started with the 2019 chatbots — understanding what’s under an LLM changes how you use it.</p>']},
+multimodal:{n:'Multimodal / OCR',t:'Multimodal',meta:'skill',
+ p:['<p><b>OCR with Tesseract and Azure Form Recognizer</b>, <b>Whisper</b> for audio, document+image pipelines. Banking reality is multimodal: scanned PDFs, receipts, calls.</p>']},
+dataeng:{n:'Data engineering',t:'Data engineering',meta:'skill',
+ p:['<p><b>pandas, polars, PySpark</b>: data prep and feature engineering at banking-portfolio scale. The hidden 70% of every ML project.</p>']},
+fullstack:{n:'Next.js + Supabase',t:'Product full-stack',meta:'skill · after hours',
+ p:['<p><b>Next.js, Supabase, PostgreSQL, Vercel, Streamlit</b>. To get ideas to users without asking permission — and to make my AI demos look like a product, not a notebook.</p>']},
+aicoding:{n:'AI coding / Claude Code',t:'Agent-assisted development',meta:'skill · daily driver',
+ p:['<p><b>Claude Code as a daily tool</b>: agentic ingestion pipelines, custom slash commands, MCP integrations, prompt and context engineering. I also teach it: it’s a module of the studio’s training programme. Git/GitHub with PRs and CI as the natural flow.</p>']},
+devops:{n:'Docker / CI-CD',t:'Docker, Git, CI/CD',meta:'skill',
+ p:['<p>Full model lifecycle: containers, CI/CD pipelines, <b>continuous monitoring and evaluation in production</b>. A model without monitoring is an incident with a pending date.</p>']},
+banca:{n:'Banking',t:'Retail and corporate banking',meta:'domain · 8 years · tier-1 banking, spain and global',
+ p:['<p>Spanish and global Tier-1 banks, and top-tier Mexican banking. The most regulated environment there is — and where it matters most that a model works. I speak the language of business and of engineering, and translate between them.</p>']},
+riesgo:{n:'Credit risk',t:'Credit risk',meta:'domain · my school',
+ p:['<p>Scoring, limits, defaults, PD, IFRS 9. Defended before risk committees, not just notebooks. The same validation discipline of risk is what I now apply to LLMs.</p>']},
+regulacion:{n:'Regulation',t:'Regulatory traceability',meta:'domain',
+ p:['<p>Structured outputs, traceability, audit, explainability: AI that can be defended before a regulator. That’s the difference between a demo and a banking system.</p>']},
+ccenter:{n:'Contact centers',t:'Contact centers',meta:'domain',
+ p:['<p>Knowledge bases and virtual assistants at a scale of millions of calls: latency, answer coverage and continuous knowledge updates.</p>']},
+producto:{n:'Digital product',t:'Digital product',meta:'domain · on my own account',
+ p:['<p>Freemium, users, metrics, iteration. What you learn operating your own product no consulting project teaches.</p>']},
+uc3m:{n:'Big Data postgrad',t:'Big Data & Analytics — UC3M + Deloitte',meta:'education',
+ p:['<p>Postgraduate in Big Data & Analytics, Universidad Carlos III + Deloitte. The gateway into professional data science.</p>']},
+upm:{n:'Energy Eng. UPM',t:'Energy Engineering — UPM',meta:'education · the origin',
+ p:['<p>Degree in Energy Engineering, Universidad Politécnica de Madrid. From high-voltage towers to transformers — the joke tells itself.</p>']},
+agente:{n:'My digital version',t:'My digital version',meta:'agent · claude api · on me',p:[]},
+makingof:{n:'How it’s made',t:'How this site is made',meta:'making-of',
+ p:['<p><b>The graph</b>: a 2D canvas with its own force simulation (O(n²) repulsion, springs with per-degree rest length, gravity to the centre, ambient drift with per-node phases) — no libraries. Flow particles on edges when focused, staggered entry, animated camera.</p>','<p><b>The data</b>: typed nodes and meaningful relationships — the same modelling principles I use in real knowledge bases with Neo4j and OpenSearch.</p>','<p><b>The agent</b>: streaming Claude API (Haiku 4.5 for chat, Sonnet 5 for fit-check) with cached prompt, consent gate, per-session and per-day budgets, rate limiting and anti prompt-injection defences. Data in Supabase (Frankfurt, EU) under deny-all RLS.</p>','<p><b>The stack</b>: Next.js 15, Supabase, Vercel. Total operating cost: &lt;€5/month.</p>']},
+};
+const DIA_EN = {
+  kbcib:[{t:'Docs 500+ pages · nested',a:'--c-pro'},{t:'Hierarchical chunking (structure)'},{t:'Hybrid retrieval + graph (Neo4j)',a:'--c-skill'},{t:'Answer with traceability',a:'--c-pro'}],
+  caixa:[{t:'Requirements (Jira / Confluence)',a:'--c-pro'},{t:'Deterministic state graph',a:'--c-skill'},{t:'LLM nodes + structured outputs'},{t:'Use cases written into Jira',a:'--c-pro'}],
+  kb12m:[{t:'Heterogeneous operational docs',a:'--c-pro'},{t:'Structural chunking'},{t:'Hybrid retrieval + metadata',a:'--c-skill'},{t:'Assistant · ~12M calls/year',a:'--c-pro'}],
+  evalfw:[{t:'Golden set (curated w/ business)',a:'--c-pro'},{t:'Candidate LLM system'},{t:'LLM-as-judge + NER metrics',a:'--c-skill'},{t:'Verdict: deploy / no deploy',a:'--c-esp'}],
+};
+const TYPES_EN = {yo:'me',rol:'roles',proyecto:'projects',skill:'skills',dominio:'domains',formacion:'education',especial:'special'};
+
+/* idioma: autodetección (inglés por defecto fuera de locales ES) + toggle persistente */
+let LANG = (localStorage.getItem('lang')) || ((navigator.language||'en').toLowerCase().startsWith('es') ? 'es' : 'en');
+const L = (n, f) => (LANG==='en' && I18N_NODES[n.id] && I18N_NODES[n.id][f]!=null) ? I18N_NODES[n.id][f] : n[f];
+const typeLabel = t => LANG==='en' ? TYPES_EN[t] : TYPES[t].label;
+const diaFor = id => LANG==='en' ? DIA_EN[id] : DIA[id];
+
+const UI = {
+  es:{
+    kg:'grafo de conocimiento', roleSub:'head of ai · future finance (globant)', searchPh:'buscar en el grafo…',
+    tipos:'tipos', tourBtn:'recorrido guiado', tourStop:(i,n)=>`recorrido ${i}/${n} — parar`,
+    hint:'arrastra los nodos · rueda para zoom · clic para leer', legalBtn:'aviso legal',
+    counts:(n,e)=>`${n} nodos · ${e} conexiones`,
+    introKicker:'daniel martínez rebolledo · head of ai',
+    introH2:'Ocho años de IA en producción en banca, presentados como lo que son: un sistema conectado.',
+    introP:'Cada nodo es un rol, un proyecto o una competencia, con su detalle técnico y sus conexiones reales — knowledge graphs, RAG y sistemas multi-agente en producción para banca Tier-1. Explóralo libremente, sigue el recorrido guiado, o pregunta a <b>mi versión digital</b>: un agente que responde por mí — y cada conversación la pago yo.',
+    startTour:'▶ &nbsp;recorrido guiado', explore:'explorar libre',
+    fitCta:'¿tienes una vacante? pega la JD y te digo dónde encajo — y dónde no',
+    impacto:'impacto', conectado:'conectado con', arquitectura:'arquitectura', ctaAgente:'hablar con mi versión digital →',
+    opener:'Hola, acabo de firmar el registro.', openerJD:'Hola, acabo de firmar el registro. He dejado la job description: hazme el fit-check.',
+    langBtn:'EN', cv:'/cv.pdf',
+    legal:`<p class="k">aviso legal y privacidad</p>
+    <h2 style="font-size:18px">Sitio sencillo, política sencilla.</h2>
+    <p><b>Titular:</b> Daniel Martínez Rebolledo · Madrid, España · <span data-m-text></span>. Web personal de presentación profesional, sin actividad comercial.</p>
+    <p><b>Datos personales (el agente):</b> si firmas el registro de visitas consientes que trate tu nombre, empresa, email corporativo, puesto, banda salarial, modalidad y la job description que aportes, con la finalidad de personalizar la conversación con el agente y gestionar el contacto profesional posterior. Base jurídica: consentimiento (art. 6.1.a RGPD). Para prevenir abuso y controlar el gasto guardo además, asociados a la sesión, un <b>hash irreversible de tu IP</b> y tu <b>user-agent</b> (base jurídica: interés legítimo, art. 6.1.f). Conservación: <b>12 meses</b>, tras los cuales se eliminan automáticamente. Fuera del registro no se recoge ningún dato; no hay cookies ni analítica (solo almacenamiento técnico de sesión, exento de consentimiento).</p><p><b>Encargados del tratamiento:</b> Supabase (base de datos en Frankfurt, UE), Vercel (hosting) y Anthropic (procesamiento del chat en EE.UU., bajo DPA y cláusulas contractuales tipo de la UE; sin uso de tus datos para entrenamiento). <b>Tus derechos:</b> acceso, rectificación, supresión, oposición, limitación, portabilidad y <b>retirada del consentimiento</b> en cualquier momento (sin efecto retroactivo) — escríbeme al <span data-m-text></span>. Si consideras que no atiendo tus derechos, puedes reclamar ante la <b>Agencia Española de Protección de Datos</b> (aepd.es).</p>
+    <p><b>Transparencia sobre IA</b> (Reglamento UE 2024/1689): "mi versión digital" es un agente de IA y se identifica como tal. Las conversaciones pueden ser revisadas por el titular para control de calidad y de abuso.</p>
+    <p><b>Enlaces externos</b> (LinkedIn, GitHub) se rigen por las políticas de sus titulares. Las marcas citadas pertenecen a sus propietarios; las referencias a proyectos están anonimizadas y descritas en términos generales.</p>
+    <p><b>Propiedad intelectual:</b> contenido y código © Daniel Martínez Rebolledo.</p>
+    <div class="row"><button class="cta" id="legalClose">cerrar</button></div>`,
+  },
+  en:{
+    kg:'knowledge graph', roleSub:'head of ai · future finance (globant)', searchPh:'search the graph…',
+    tipos:'types', tourBtn:'guided tour', tourStop:(i,n)=>`tour ${i}/${n} — stop`,
+    hint:'drag nodes · scroll to zoom · click to read', legalBtn:'legal',
+    counts:(n,e)=>`${n} nodes · ${e} connections`,
+    introKicker:'daniel martínez rebolledo · head of ai',
+    introH2:'Eight years of production AI in banking, shown as what it is: one connected system.',
+    introP:'Every node is a role, a project or a skill, with its technical detail and its real connections — knowledge graphs, RAG and multi-agent systems in production for Tier-1 banking. Explore it freely, follow the guided tour, or ask <b>my digital version</b>: an agent that answers for me — and I pay for every conversation.',
+    startTour:'▶ &nbsp;guided tour', explore:'explore freely',
+    fitCta:'hiring? paste the JD and I’ll tell you where I fit — and where I don’t',
+    impacto:'impact', conectado:'connected to', arquitectura:'architecture', ctaAgente:'talk to my digital version →',
+    opener:'Hi, I just signed the register.', openerJD:'Hi, I just signed the register. I left the job description — give me the fit-check.',
+    langBtn:'ES', cv:'/cv-en.pdf',
+    legal:`<p class="k">legal notice & privacy</p>
+    <h2 style="font-size:18px">Simple site, simple policy.</h2>
+    <p><b>Controller:</b> Daniel Martínez Rebolledo · Madrid, Spain · <span data-m-text></span>. A personal professional website, with no commercial activity.</p>
+    <p><b>Personal data (the agent):</b> if you sign the visit register you consent to processing of your name, company, work email, role, salary band, work mode and the job description you provide, for the sole purpose of personalising the conversation with the agent and handling later professional contact. Legal basis: consent (art. 6.1.a GDPR). To prevent abuse and control cost I also store, tied to the session, an <b>irreversible hash of your IP</b> and your <b>user-agent</b> (legal basis: legitimate interest, art. 6.1.f). Retention: <b>12 months</b>, after which data is deleted automatically. Outside the register no data is collected; there are no cookies or analytics (only technical session storage, exempt from consent).</p><p><b>Processors:</b> Supabase (database in Frankfurt, EU), Vercel (hosting) and Anthropic (chat processing in the US, under a DPA and EU standard contractual clauses; your data is not used for training). <b>Your rights:</b> access, rectification, erasure, objection, restriction, portability and <b>withdrawal of consent</b> at any time (without retroactive effect) — write to me at <span data-m-text></span>. If you believe your rights aren’t being met, you may complain to the Spanish Data Protection Agency (<b>AEPD</b>, aepd.es).</p>
+    <p><b>AI transparency</b> (EU Regulation 2024/1689): "my digital version" is an AI agent and identifies itself as such. Conversations may be reviewed by the controller for quality and abuse control.</p>
+    <p><b>External links</b> (LinkedIn, GitHub) are governed by their owners’ policies. Trademarks belong to their owners; project references are anonymised and described in general terms.</p>
+    <p><b>Intellectual property:</b> content and code © Daniel Martínez Rebolledo.</p>
+    <div class="row"><button class="cta" id="legalClose">close</button></div>`,
+  },
+};
+const T = () => UI[LANG];
+
+const AG = {
+  es:{
+    title:'Mi versión digital', meta:'api de claude · streaming · lo pago yo',
+    intro:'Un agente que responde como yo, solo con hechos verificables — y <b>tiene prohibido inventar</b>. Cada conversación sale de mi bolsillo, así que te pido 30 segundos de contexto; a cambio, adapta sus respuestas a tu vacante y, si pegas la JD, te devuelve un <b>fit-check honesto</b> — incluido dónde no encajo.',
+    lName:'nombre', lCompany:'empresa', lEmail:'email corporativo', lRole:'puesto que cubrís',
+    lBand:'banda salarial', lMode:'modalidad', lJD:'job description', jdOpt:'· opcional — activa el fit-check',
+    phRole:'Senior AI Engineer', phJD:'Pega la JD completa…', selPh:'seleccionar…',
+    modes:['Remoto','Híbrido Madrid','Presencial','Con reubicación'],
+    consent:'Consiento el tratamiento de estos datos para personalizar la conversación y el contacto profesional posterior, según la <a href="#" id="gPriv" style="color:var(--c-esp)">política de privacidad</a>. Conservación: 12 meses.',
+    go:'desbloquear el agente →', verifying:'verificando…',
+    gnote:'base de datos en la UE · sin spam · hablarás con una IA, no con Dani',
+    sleepAlert:'El agente ha alcanzado su límite de gasto de hoy. Vuelve mañana o usa el botón de email.',
+    createErr:'No se pudo crear la sesión.', netErr:'Error de red. Prueba de nuevo.',
+    sessNote:'sesión creada · prompt cacheado · contexto del registro inyectado',
+    sessMeta:e=>`sesión: ${e} · eres tú quien habla con una IA`,
+    costLine:'coste real de esta conversación (lo asumo yo)', tele:'sala de máquinas — telemetría en vivo',
+    tBudget:'presupuesto de sesión', tMsgs:'mensajes', tHaiku:'haiku 4.5 · conversación', tSonnet:'sonnet 5 · fit-check', tCache:'prompt cache',
+    guard:'guardrails activos: <b>anti prompt-injection</b> · <b>rate limiting</b> por email e IP · <b>presupuesto</b> 30k tk/sesión · <b>kill-switch</b> de gasto diario · <b>RLS</b> deny-all · datos en la <b>UE</b> (Frankfurt) · retención 12 meses',
+    chips:[['¿Qué experiencia real tienes desplegando ML en producción, más allá de POCs?','¿producción de verdad?'],['¿Cuál es tu historia con Bluecap y Globant?','¿bluecap → globant?'],['¿Por qué escucharías ofertas siendo Head of AI?','¿por qué escuchas ofertas?'],['Genérame un resumen del encaje de Dani con nuestra vacante que pueda reenviar a mi equipo: fortalezas, gaps honestos y siguientes pasos.','📋 resumen para mi equipo']],
+    composerPh:'pregúntame lo que le preguntarías a Dani…', send:'enviar', you:'tú', botWho:'dani · versión digital (IA)',
+    errBudget:'Se acabó mi presupuesto contigo 🙂 — lo que queda, cuéntamelo en persona: usa el botón de email.',
+    errSleep:'He alcanzado mi límite de gasto de hoy. Vuelve mañana, o escríbeme directamente con el botón de email.',
+    errSession:'La sesión ha caducado. Recarga la página para empezar otra.', errUnavail:'No estoy disponible ahora mismo. Prueba en unos minutos.',
+    errCut:' […la conexión se cortó; vuelve a intentarlo]', errNet:'Error de red — vuelve a intentarlo.',
+    cacheHit:k=>`hit · ${k}k tk con −90% dto.`, cacheWrite:'write · cacheando el system prompt', locale:'es-ES',
+  },
+  en:{
+    title:'My digital version', meta:'claude api · streaming · on me',
+    intro:'An agent that answers like me, with verifiable facts only — and it is <b>forbidden from making things up</b>. Every conversation is on my dime, so I ask for 30 seconds of context; in return it tailors its answers to your role and, if you paste the JD, gives you an <b>honest fit-check</b> — including where I don’t fit.',
+    lName:'name', lCompany:'company', lEmail:'work email', lRole:'role you’re hiring for',
+    lBand:'salary band', lMode:'work mode', lJD:'job description', jdOpt:'· optional — enables the fit-check',
+    phRole:'Senior AI Engineer', phJD:'Paste the full JD…', selPh:'select…',
+    modes:['Remote','Hybrid Madrid','On-site','Open to relocation'],
+    consent:'I consent to the processing of this data to personalise the conversation and manage later professional contact, per the <a href="#" id="gPriv" style="color:var(--c-esp)">privacy policy</a>. Retention: 12 months.',
+    go:'unlock the agent →', verifying:'verifying…',
+    gnote:'database in the EU · no spam · you’ll talk to an AI, not to Dani',
+    sleepAlert:'The agent has hit its spend limit for today. Come back tomorrow or use the email button.',
+    createErr:'Couldn’t create the session.', netErr:'Network error. Try again.',
+    sessNote:'session created · prompt cached · register context injected',
+    sessMeta:e=>`session: ${e} · you’re the one talking to an AI`,
+    costLine:'real cost of this conversation (I cover it)', tele:'engine room — live telemetry',
+    tBudget:'session budget', tMsgs:'messages', tHaiku:'haiku 4.5 · conversation', tSonnet:'sonnet 5 · fit-check', tCache:'prompt cache',
+    guard:'active guardrails: <b>anti prompt-injection</b> · <b>rate limiting</b> by email & IP · <b>budget</b> 30k tk/session · daily spend <b>kill-switch</b> · deny-all <b>RLS</b> · data in the <b>EU</b> (Frankfurt) · 12-month retention',
+    chips:[['What real experience do you have deploying ML in production, beyond POCs?','real production?'],['What’s your Bluecap → Globant story?','bluecap → globant?'],['Why would you listen to offers as Head of AI?','why listen to offers?'],['Write a summary of Dani’s fit with our role that I can forward to my team: strengths, honest gaps and next steps.','📋 summary for my team']],
+    composerPh:'ask me what you’d ask Dani…', send:'send', you:'you', botWho:'dani · digital version (AI)',
+    errBudget:'That’s my budget with you spent 🙂 — for the rest, let’s talk in person: use the email button.',
+    errSleep:'I’ve hit my spend limit for today. Come back tomorrow, or email me directly with the email button.',
+    errSession:'The session has expired. Reload the page to start a new one.', errUnavail:'I’m not available right now. Try again in a few minutes.',
+    errCut:' […the connection dropped; try again]', errNet:'Network error — try again.',
+    cacheHit:k=>`hit · ${k}k tk at −90% off`, cacheWrite:'write · caching the system prompt', locale:'en-GB',
+  },
+};
+const A = () => AG[LANG];
+
 /* ════════ ESTADO ════════ */
 const nodes = N.map(d => ({...d, x:0, y:0, vx:0, vy:0, deg:0, hk:0, phase:Math.random()*Math.PI*2, born:0}));
 const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
@@ -801,11 +1040,12 @@ function draw(now){
       const fs = Math.max(10, Math.min(13, (important?12:10.5) * Math.sqrt(cam.s)));
       ctx.font = `500 ${fs}px "Geist", sans-serif`;
       ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      const lbl = L(n,'n');
       ctx.fillStyle = COL.bg; ctx.globalAlpha = al*.85;
-      ctx.fillText(n.n, sx+1, sy+r+5+1);
+      ctx.fillText(lbl, sx+1, sy+r+5+1);
       ctx.globalAlpha = al * (important ? .95 : .72);
       ctx.fillStyle = n===hoverN||n===selN ? COL[n.type] : COL.text;
-      ctx.fillText(n.n, sx, sy+r+5);
+      ctx.fillText(lbl, sx, sy+r+5);
     }
   }
 
@@ -949,11 +1189,12 @@ mini.addEventListener('click', e => {
 /* ════════ LEYENDA ════════ */
 const counts = {};
 nodes.forEach(n => counts[n.type]=(counts[n.type]||0)+1);
-document.getElementById('counts').textContent = `${nodes.length} nodos · ${edges.length} conexiones`;
+document.getElementById('counts').textContent = T().counts(nodes.length, edges.length);
 const legend = document.getElementById('legend');
 for (const t in TYPES){
   const b = document.createElement('button');
-  b.innerHTML = `<span class="dot" style="background:var(${TYPES[t].color})"></span>${TYPES[t].label}<span class="n">${counts[t]||0}</span>`;
+  b.dataset.type = t;
+  b.innerHTML = `<span class="dot" style="background:var(${TYPES[t].color})"></span><span class="lbl">${typeLabel(t)}</span><span class="n">${counts[t]||0}</span>`;
   b.onclick = () => {
     if (hidden.has(t)) hidden.delete(t); else hidden.add(t);
     b.classList.toggle('off', hidden.has(t));
@@ -967,9 +1208,9 @@ q.addEventListener('input', () => {
   const s = q.value.trim().toLowerCase();
   results.innerHTML = ''; results.classList.toggle('on', s.length>0);
   if (!s) return;
-  nodes.filter(n => (n.n+' '+n.t+' '+n.meta).toLowerCase().includes(s)).slice(0,7).forEach(n => {
+  nodes.filter(n => (L(n,'n')+' '+L(n,'t')+' '+L(n,'meta')+' '+n.n+' '+n.t).toLowerCase().includes(s)).slice(0,7).forEach(n => {
     const b = document.createElement('button');
-    b.innerHTML = `<span class="dot" style="background:var(${TYPES[n.type].color})"></span>${n.n}<span class="t">${TYPES[n.type].label}</span>`;
+    b.innerHTML = `<span class="dot" style="background:var(${TYPES[n.type].color})"></span>${L(n,'n')}<span class="t">${typeLabel(n.type)}</span>`;
     b.onclick = () => { select(n); q.value=''; results.classList.remove('on'); };
     results.appendChild(b);
   });
@@ -988,8 +1229,8 @@ document.getElementById('pClose').onclick = deselect;
 function relatedChips(n){
   const rels = [...neighbors[n.id]].filter(id => id!==n.id).map(id => byId[id]);
   if (!rels.length) return '';
-  return `<p class="rel-t">conectado con</p><div class="rels">` +
-    rels.map(r => `<button data-go="${r.id}"><span class="dot" style="background:var(${TYPES[r.type].color})"></span>${r.n}</button>`).join('') + `</div>`;
+  return `<p class="rel-t">${T().conectado}</p><div class="rels">` +
+    rels.map(r => `<button data-go="${r.id}"><span class="dot" style="background:var(${TYPES[r.type].color})"></span>${L(r,'n')}</button>`).join('') + `</div>`;
 }
 
 /* ════════ MINI-DIAGRAMAS DE ARQUITECTURA (SVG, tema-aware vía CSS vars) ════════ */
@@ -1011,21 +1252,21 @@ function buildDiagram(steps){
     `<defs><marker id="dar" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--muted)" stroke-width="1.1"/></marker></defs>`+
     parts.join('')+`</svg>`;
 }
-const diagramFor = n => DIA[n.id] ? `<p class="rel-t" style="margin-top:18px">arquitectura</p>${buildDiagram(DIA[n.id])}` : '';
+const diagramFor = n => diaFor(n.id) ? `<p class="rel-t" style="margin-top:18px">${T().arquitectura}</p>${buildDiagram(diaFor(n.id))}` : '';
 function select(n){
   selN = n; hoverN = null;
   ripple = {n, t:performance.now()};
   focusNode(n, Math.max(cam.s, 1.1));
-  pBadge.textContent = TYPES[n.type].label;
+  pBadge.textContent = typeLabel(n.type);
   pBadge.style.color = `var(${TYPES[n.type].color})`;
   if (n.id === 'agente'){ renderAgente(); }
   else {
     pBody.innerHTML =
-      `<h2>${n.t}</h2><p class="meta">${n.meta}</p>` +
-      (n.impact ? `<div class="impact"><span class="impact-k">impacto</span><span>${n.impact}</span></div>` : '') +
-      n.p.join('') +
+      `<h2>${L(n,'t')}</h2><p class="meta">${L(n,'meta')}</p>` +
+      (L(n,'impact') ? `<div class="impact"><span class="impact-k">${T().impacto}</span><span>${L(n,'impact')}</span></div>` : '') +
+      L(n,'p').join('') +
       diagramFor(n) +
-      (n.cta ? `<button class="cta acc" data-go="agente">hablar con mi versión digital →</button>` : '') +
+      (n.cta ? `<button class="cta acc" data-go="agente">${T().ctaAgente}</button>` : '') +
       relatedChips(n);
   }
   panel.classList.add('on');
@@ -1048,87 +1289,86 @@ const fmtE = x => x.toLocaleString('es-ES',{minimumFractionDigits:3,maximumFract
 function renderAgente(){ agent.token ? renderChat() : renderGate(); }
 
 function renderGate(){
+  const a = A();
   pBody.innerHTML = `
-    <h2>Mi versión digital</h2>
-    <p class="meta">api de claude · streaming · lo pago yo</p>
-    <p>Un agente que responde como yo, solo con hechos verificables — y <b>tiene prohibido inventar</b>. Cada conversación sale de mi bolsillo, así que te pido 30 segundos de contexto; a cambio, adapta sus respuestas a tu vacante y, si pegas la JD, te devuelve un <b>fit-check honesto</b> — incluido dónde no encajo.</p>
+    <h2>${a.title}</h2>
+    <p class="meta">${a.meta}</p>
+    <p>${a.intro}</p>
     <form class="gform" id="gateForm">
-      <div class="f"><label>nombre</label><input id="gN" required maxlength="120" placeholder="Laura García"></div>
-      <div class="f"><label>empresa</label><input id="gC" required maxlength="120" placeholder="Huspy"></div>
-      <div class="f"><label>email corporativo</label><input id="gE" type="email" required maxlength="200" placeholder="laura@huspy.com"></div>
-      <div class="f"><label>puesto que cubrís</label><input id="gP" required maxlength="120" placeholder="Senior AI Engineer"></div>
-      <div class="f"><label>banda salarial</label><select id="gB" required>
-        <option value="" selected disabled>seleccionar…</option>
+      <div class="f"><label>${a.lName}</label><input id="gN" required maxlength="120" placeholder="Laura García"></div>
+      <div class="f"><label>${a.lCompany}</label><input id="gC" required maxlength="120" placeholder="Huspy"></div>
+      <div class="f"><label>${a.lEmail}</label><input id="gE" type="email" required maxlength="200" placeholder="laura@huspy.com"></div>
+      <div class="f"><label>${a.lRole}</label><input id="gP" required maxlength="120" placeholder="${a.phRole}"></div>
+      <div class="f"><label>${a.lBand}</label><select id="gB" required>
+        <option value="" selected disabled>${a.selPh}</option>
         <option>&lt;60k €</option><option>60–75k €</option><option>75–90k €</option><option>90–110k €</option><option>&gt;110k €</option>
       </select></div>
-      <div class="f"><label>modalidad</label><select id="gM" required>
-        <option value="" selected disabled>seleccionar…</option>
-        <option>Remoto</option><option>Híbrido Madrid</option><option>Presencial</option><option>Con reubicación</option>
+      <div class="f"><label>${a.lMode}</label><select id="gM" required>
+        <option value="" selected disabled>${a.selPh}</option>
+        ${a.modes.map(m=>`<option>${m}</option>`).join('')}
       </select></div>
-      <div class="f"><label>job description <em>· opcional — activa el fit-check</em></label><textarea id="gJ" maxlength="15000" placeholder="Pega la JD completa…"></textarea></div>
+      <div class="f"><label>${a.lJD} <em>${a.jdOpt}</em></label><textarea id="gJ" maxlength="15000" placeholder="${a.phJD}"></textarea></div>
       <label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);cursor:pointer">
         <input type="checkbox" id="gConsent" required style="width:auto;margin-top:3px">
-        <span>Consiento el tratamiento de estos datos para personalizar la conversación y el contacto profesional posterior, según la <a href="#" id="gPriv" style="color:var(--c-esp)">política de privacidad</a>. Conservación: 12 meses.</span>
+        <span>${a.consent}</span>
       </label>
-      <button class="cta acc" type="submit" id="gGo">desbloquear el agente →</button>
-      <span class="gnote">base de datos en la UE · sin spam · hablarás con una IA, no con Dani</span>
+      <button class="cta acc" type="submit" id="gGo">${a.go}</button>
+      <span class="gnote">${a.gnote}</span>
     </form>`;
   document.getElementById('gPriv').addEventListener('click', e => { e.preventDefault(); document.getElementById('legal').classList.remove('off'); });
   document.getElementById('gateForm').addEventListener('submit', async e => {
     e.preventDefault();
     const v = id => document.getElementById(id).value.trim();
     const btn = document.getElementById('gGo');
-    btn.textContent = 'verificando…'; btn.disabled = true;
+    btn.textContent = a.verifying; btn.disabled = true;
     try{
       const res = await fetch('/api/gate', {
         method:'POST', headers:{'content-type':'application/json'},
         body: JSON.stringify({ nombre:v('gN'), empresa:v('gC'), email:v('gE'), puesto:v('gP'),
-          banda:v('gB'), modalidad:v('gM'), jd:v('gJ'), consent: document.getElementById('gConsent').checked }),
+          banda:v('gB'), modalidad:v('gM'), jd:v('gJ'), consent: document.getElementById('gConsent').checked, lang: LANG }),
       });
       const data = await res.json();
       if (!res.ok){
-        btn.textContent = 'desbloquear el agente →'; btn.disabled = false;
-        alert(data.error === 'sleep' ? 'El agente ha alcanzado su límite de gasto de hoy. Vuelve mañana o usa el botón de email.' : (data.error || 'No se pudo crear la sesión.'));
+        btn.textContent = a.go; btn.disabled = false;
+        alert(data.error === 'sleep' ? a.sleepAlert : (data.error || a.createErr));
         return;
       }
       agent.token = data.token;
       agent.r = { nombre:v('gN'), empresa:v('gC'), puesto:v('gP'), jd:v('gJ') };
       renderChat();
-      agent.log.push({cls:'s', who:'', text:'sesión creada · prompt cacheado · contexto del registro inyectado'});
-      appendM('s','', 'sesión creada · prompt cacheado · contexto del registro inyectado');
-      send(agent.r.jd ? 'Hola, acabo de firmar el registro. He dejado la job description: hazme el fit-check.' : 'Hola, acabo de firmar el registro.');
+      agent.log.push({cls:'s', who:'', text:a.sessNote});
+      appendM('s','', a.sessNote);
+      send(agent.r.jd ? T().openerJD : T().opener);
     } catch {
-      btn.textContent = 'desbloquear el agente →'; btn.disabled = false;
-      alert('Error de red. Prueba de nuevo.');
+      btn.textContent = a.go; btn.disabled = false;
+      alert(a.netErr);
     }
   });
 }
 
 function renderChat(){
+  const a = A();
   pBody.innerHTML = `
-    <h2>Mi versión digital</h2>
-    <p class="meta">sesión: ${agent.r.empresa} · eres tú quien habla con una IA</p>
+    <h2>${a.title}</h2>
+    <p class="meta">${a.sessMeta(agent.r.empresa)}</p>
     <div class="chatui on">
-      <div class="tokenbar"><span>coste real de esta conversación (lo asumo yo)</span><b id="tok">0 tk · 0,000 €</b></div>
-      <button class="telebtn" id="teleBtn" type="button">▸ sala de máquinas — telemetría en vivo</button>
+      <div class="tokenbar"><span>${a.costLine}</span><b id="tok">0 tk · 0,000 €</b></div>
+      <button class="telebtn" id="teleBtn" type="button">▸ ${a.tele}</button>
       <div class="tele hidden" id="tele">
-        <div class="trow"><span>presupuesto de sesión</span><div class="meter"><i id="tMeter"></i></div><b id="tBudget">0,0k / 30k tk</b></div>
-        <div class="trow"><span>mensajes</span><b id="tMsgs">0 / 25</b></div>
-        <div class="trow"><span>haiku 4.5 · conversación</span><b id="tHaiku">—</b></div>
-        <div class="trow"><span>sonnet 5 · fit-check</span><b id="tSonnet">—</b></div>
-        <div class="trow"><span>prompt cache</span><b id="tCache">—</b></div>
-        <div class="guard">guardrails activos: <b>anti prompt-injection</b> · <b>rate limiting</b> por email e IP · <b>presupuesto</b> 30k tk/sesión · <b>kill-switch</b> de gasto diario · <b>RLS</b> deny-all · datos en la <b>UE</b> (Frankfurt) · retención 12 meses</div>
+        <div class="trow"><span>${a.tBudget}</span><div class="meter"><i id="tMeter"></i></div><b id="tBudget">0,0k / 30k tk</b></div>
+        <div class="trow"><span>${a.tMsgs}</span><b id="tMsgs">0 / 25</b></div>
+        <div class="trow"><span>${a.tHaiku}</span><b id="tHaiku">—</b></div>
+        <div class="trow"><span>${a.tSonnet}</span><b id="tSonnet">—</b></div>
+        <div class="trow"><span>${a.tCache}</span><b id="tCache">—</b></div>
+        <div class="guard">${a.guard}</div>
       </div>
       <div class="chatlog" id="clog"></div>
       <div class="qchips" id="chips">
-        <button data-q="¿Qué experiencia real tienes desplegando ML en producción, más allá de POCs?">¿producción de verdad?</button>
-        <button data-q="¿Cuál es tu historia con Bluecap y Globant?">¿bluecap → globant?</button>
-        <button data-q="¿Por qué escucharías ofertas siendo Head of AI?">¿por qué escuchas ofertas?</button>
-        <button data-q="Genérame un resumen del encaje de Dani con nuestra vacante que pueda reenviar a mi equipo: fortalezas, gaps honestos y siguientes pasos.">📋 resumen para mi equipo</button>
+        ${a.chips.map(([q,label])=>`<button data-q="${q.replace(/"/g,'&quot;')}">${label}</button>`).join('')}
       </div>
       <form class="crow" id="composer">
-        <input id="ci" maxlength="4000" placeholder="pregúntame lo que le preguntarías a Dani…" autocomplete="off">
-        <button type="submit">enviar</button>
+        <input id="ci" maxlength="4000" placeholder="${a.composerPh}" autocomplete="off">
+        <button type="submit">${a.send}</button>
       </form>
     </div>`;
   agent.log.forEach(m => appendM(m.cls, m.who, m.text));
@@ -1136,7 +1376,7 @@ function renderChat(){
   document.getElementById('teleBtn').addEventListener('click', () => {
     const t = document.getElementById('tele'), b = document.getElementById('teleBtn');
     const open = t.classList.toggle('hidden');
-    b.textContent = (open ? '▸' : '▾') + ' sala de máquinas — telemetría en vivo';
+    b.textContent = (open ? '▸' : '▾') + ' ' + A().tele;
   });
   document.getElementById('composer').addEventListener('submit', e => {
     e.preventDefault();
@@ -1157,18 +1397,19 @@ function updateTele(u){
   const short = (u.model || '').includes('haiku') ? 'haiku' : 'sonnet';
   const pm = agent.perModel[short] || (agent.perModel[short] = {tk:0, eur:0});
   pm.tk += (u.tin + u.tout); pm.eur += u.cost_eur;
-  agent.cache = u.cache_read > 0 ? `hit · ${(u.cache_read/1000).toFixed(1)}k tk con −90% dto.`
-    : (u.cache_write > 0 ? 'write · cacheando el system prompt' : '—');
+  agent.cache = u.cache_read > 0 ? A().cacheHit((u.cache_read/1000).toFixed(1))
+    : (u.cache_write > 0 ? A().cacheWrite : '—');
   updateTok();
 }
 function updateTok(){
   const q = id => document.getElementById(id);
-  if (q('tok')) q('tok').textContent = `${agent.sessTokens.toLocaleString('es-ES')} tk · ${fmtE(agent.sessCost)} €`;
+  if (q('tok')) q('tok').textContent = `${agent.sessTokens.toLocaleString(A().locale)} tk · ${fmtE(agent.sessCost)} €`;
   if (!q('tele')) return;
   const pct = Math.min(100, agent.sessTokens / 30000 * 100);
   q('tMeter').style.width = pct + '%';
   q('tMeter').style.background = pct > 85 ? 'var(--c-esp)' : 'var(--c-skill)';
-  q('tBudget').textContent = `${(agent.sessTokens/1000).toFixed(1)}k / 30k tk · quedan ${Math.max(0,(30000-agent.sessTokens)/1000).toFixed(1)}k`;
+  { const used=(agent.sessTokens/1000).toFixed(1), left=Math.max(0,(30000-agent.sessTokens)/1000).toFixed(1);
+    q('tBudget').textContent = LANG==='en' ? `${used}k / 30k tk · ${left}k left` : `${used}k / 30k tk · quedan ${left}k`; }
   q('tMsgs').textContent = `${agent.msgs} / ${agent.msgsMax}`;
   const f = m => agent.perModel[m] ? `${(agent.perModel[m].tk/1000).toFixed(1)}k tk · ${fmtE(agent.perModel[m].eur)} €` : '—';
   q('tHaiku').textContent = f('haiku');
@@ -1184,12 +1425,13 @@ function appendM(cls, who, text){
   log.appendChild(el); log.scrollTop = log.scrollHeight;
   return el;
 }
-function userM(t){ agent.log.push({cls:'u', who:'tú', text:t}); appendM('u','tú',t); }
+function userM(t){ const w=A().you; agent.log.push({cls:'u', who:w, text:t}); appendM('u',w,t); }
 function sysNote(t){ agent.log.push({cls:'s', who:'', text:t}); appendM('s','',t); }
 
 async function send(text){
+  const a = A();
   agent.busy = true;
-  const entry = {cls:'a', who:'dani · versión digital (IA)', text:''};
+  const entry = {cls:'a', who:a.botWho, text:''};
   agent.log.push(entry);
   const el = appendM('a', entry.who, '');
   const node = el ? el.lastChild : null;
@@ -1197,14 +1439,14 @@ async function send(text){
   try{
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'content-type':'application/json'},
-      body: JSON.stringify({ token: agent.token, message: text }),
+      body: JSON.stringify({ token: agent.token, message: text, lang: LANG }),
     });
     if (!res.ok){
       const data = await res.json().catch(() => ({}));
-      const msg = data.error === 'budget' ? 'Se acabó mi presupuesto contigo 🙂 — lo que queda, cuéntamelo en persona: usa el botón de email.'
-        : data.error === 'sleep' ? 'He alcanzado mi límite de gasto de hoy. Vuelve mañana, o escríbeme directamente con el botón de email.'
-        : data.error === 'invalid_session' ? 'La sesión ha caducado. Recarga la página para empezar otra.'
-        : (data.error || 'No estoy disponible ahora mismo. Prueba en unos minutos.');
+      const msg = data.error === 'budget' ? a.errBudget
+        : data.error === 'sleep' ? a.errSleep
+        : data.error === 'invalid_session' ? a.errSession
+        : (data.error || a.errUnavail);
       entry.text = msg; if (node) node.textContent = msg;
       agent.busy = false; return;
     }
@@ -1222,11 +1464,11 @@ async function send(text){
         let ev; try{ ev = JSON.parse(payload); }catch{ continue; }
         if (ev.t){ entry.text += ev.t; if (node) node.textContent = entry.text; if (logEl) logEl.scrollTop = logEl.scrollHeight; }
         if (ev.usage){ updateTele(ev.usage); }
-        if (ev.error){ entry.text += ' […la conexión se cortó; vuelve a intentarlo]'; if (node) node.textContent = entry.text; }
+        if (ev.error){ entry.text += a.errCut; if (node) node.textContent = entry.text; }
       }
     }
   } catch {
-    entry.text = entry.text || 'Error de red — vuelve a intentarlo.';
+    entry.text = entry.text || a.errNet;
     if (node) node.textContent = entry.text;
   }
   agent.busy = false;
@@ -1239,14 +1481,14 @@ const tourBtn = document.getElementById('tourBtn');
 function stepTour(){
   tourI++;
   if (tourI >= TOUR.length){ stopTour(); return; }
-  tourBtn.innerHTML = `<span class="play">■</span> recorrido ${tourI+1}/${TOUR.length} — parar`;
+  tourBtn.innerHTML = `<span class="play">■</span> ${T().tourStop(tourI+1, TOUR.length)}`;
   select(byId[TOUR[tourI]]);
   tourTimer = setTimeout(stepTour, 3600);
 }
 function startTour(){ stopTour(); tourI = -1; stepTour(); }
 function stopTour(){
   if (tourTimer){ clearTimeout(tourTimer); tourTimer = null; }
-  if (tourI >= 0){ tourBtn.innerHTML = '<span class="play">▶</span> recorrido guiado'; tourI = -1; }
+  if (tourI >= 0){ tourBtn.innerHTML = `<span class="play">▶</span> ${T().tourBtn}`; tourI = -1; }
 }
 tourBtn.onclick = () => { if (tourTimer) stopTour(); else startTour(); };
 
@@ -1258,17 +1500,48 @@ document.getElementById('introFit').onclick = () => { intro.classList.add('off')
 
 
 /* email ofuscado: se construye en runtime, no está en el HTML */
-const MU = ['daniel','martinezre'].join('.'), MD = ['gmail','com'].join('.');
+const MU = ['daniel','martinezre'].join('.'), MD = ['gmail','com'].join('.'), EMAIL = MU + '@' + MD;
 document.querySelectorAll('[data-m]').forEach(a => a.addEventListener('click', ev => {
-  ev.preventDefault(); location.href = 'mailto:' + MU + '@' + MD;
+  ev.preventDefault(); location.href = 'mailto:' + EMAIL;
 }));
-document.querySelectorAll('[data-m-text]').forEach(s => { s.textContent = MU + '@' + MD; });
+const fillEmail = (root=document) => root.querySelectorAll('[data-m-text]').forEach(s => { s.textContent = EMAIL; });
 
 /* aviso legal */
 const legal = document.getElementById('legal');
+const legalCard = legal.querySelector('.intro-card');
 document.getElementById('legalBtn').onclick = () => legal.classList.remove('off');
-document.getElementById('legalClose').onclick = () => legal.classList.add('off');
 legal.addEventListener('click', e => { if (e.target === legal) legal.classList.add('off'); });
+
+/* ════════ i18n · aplicar idioma ════════ */
+function applyLang(){
+  document.documentElement.lang = LANG;
+  const t = T();
+  document.getElementById('kgLabel').textContent = t.kg;
+  document.getElementById('counts').textContent = t.counts(nodes.length, edges.length);
+  document.getElementById('q').placeholder = t.searchPh;
+  document.getElementById('legendTitle').textContent = t.tipos;
+  legend.querySelectorAll('button[data-type]').forEach(b => { const l=b.querySelector('.lbl'); if(l) l.textContent = typeLabel(b.dataset.type); });
+  if (!tourTimer) tourBtn.innerHTML = `<span class="play">▶</span> ${t.tourBtn}`;
+  document.getElementById('hint').textContent = t.hint;
+  document.getElementById('legalBtn').textContent = t.legalBtn;
+  document.getElementById('langBtn').textContent = t.langBtn;
+  document.getElementById('cvLink').setAttribute('href', t.cv);
+  document.getElementById('introKicker').textContent = t.introKicker;
+  document.getElementById('introH2').textContent = t.introH2;
+  document.getElementById('introP').innerHTML = t.introP;
+  document.getElementById('startTour').innerHTML = t.startTour;
+  document.getElementById('freeExplore').textContent = t.explore;
+  document.getElementById('introFit').textContent = t.fitCta;
+  legalCard.innerHTML = t.legal;
+  const lc = legalCard.querySelector('#legalClose'); if (lc) lc.onclick = () => legal.classList.add('off');
+  fillEmail();
+  if (selN) select(selN);
+}
+document.getElementById('langBtn').onclick = () => {
+  LANG = LANG === 'es' ? 'en' : 'es';
+  localStorage.setItem('lang', LANG);
+  applyLang();
+};
 
 /* ════════ DEEP-LINKS ════════ */
 /* cada nodo es enlazable: talktomycv.vercel.app/#kbcib abre ese proyecto directamente */
@@ -1290,6 +1563,7 @@ function introReveal(){
   cam.s = camTarget.s * .68;                 // arranca más abierto y deja que la cámara empuje hacia dentro
 }
 
+applyLang();
 for (let i=0;i<180;i++) tick(0);
 alpha = .4;
 if (!openFromHash()) introReveal();
